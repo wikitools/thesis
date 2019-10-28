@@ -1,42 +1,21 @@
 language: generic
-
 dist: bionic
-
-## Uncomment the following lines if you require extra dependencies
-#before_install:
-# - sudo apt-get install ghostscript # If you use latex > dvips > ps2pdf
-# - sudo apt-get install python-pygments # If you use the minted package
-  # If you use custom fonts:
-# - mkdir $HOME/.fonts
-# - cp -a $TRAVIS_BUILD_DIR/src/fonts/. $HOME/.fonts/
-# - fc-cache -f -v
-
 install:
-  - source ./texlive/texlive_install.sh
-
+- source ./texlive/texlive_install.sh
 cache:
   directories:
-    - /tmp/texlive
-    - $HOME/.texlive
-
-# Change working directory so including files will work
+  - "/tmp/texlive"
+  - "$HOME/.texlive"
 before_script: cd $TRAVIS_BUILD_DIR/
 script:
-  # Texliveonfly will download packages automatically
-  - texliveonfly praca.tex
-  # You can use latexmk to automatically handle bibtex and references (recommended)
-  - latexmk -pdf praca.tex
-
-  # But you could use any other compiler as well instead of latexmk. Example:
-#  - pdflatex main.tex
-#  - bibtex main
-#  - pdflatex main.tex
-#  - pdflatex main.tex # Compile twice to fix references
-
-  # You can also pass arguments to texliveonfly:
-#  - texliveonfly --arguments='-shell-escape' main.tex
-
-## Uncomment the following lines to see the packages installed in travis
-#after_script:
-#  - export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
-#  - tlmgr list --only-installed | grep -oP 'i \K.+?(?=:)'
+- texliveonfly praca.tex
+- latexmk -pdf praca.tex
+deploy:
+  provider: releases
+  api_key:
+    secure: rqDzM6LIV0X7sN+e81F4kz2fDIhRW6DUPsrY58zhsknelI67/rHgvVUTwSkTsOc82UmJt56CbsyQjj8TDPy9DvxKtT271Fpsims54JpKVikVo9220Z7BqMViunM06iWhQE7TjhowiK/nTPF5GlfkaI3IiwMus8kVZT6pF9uUAWZ0XJBQTUJkiGMyNnqYbeipWSfkdSl/rJOk4qt4K1qouTpVTeJZguD4YyszZ7CaqVXJBPcqYDQdUSwzVUwZSca2pj5wNy9JX9lc3Q+zZiQCrVTvDxoA2vf9m1i6e5/F+/h7U5EVJfKCz0LMZyUAlGQO6WsAnyb6KJ1anP4ZoHsnPlk6J06LjTldKi+tviFUxzK7YFYZlk8DWfH4K+RqXXKt1FvTM+spgGah6qaoeRkkDUCWL/pd/PxrDz3UScfB4SKDOIdarbMuqH5zsSitR/bfUiKdRjPhXrmRqCGMCYWts3CIIedib69vkq2JvVa9GrFcRqOdF/6ZL1z0ixFyyxkSSiM5fANXP7Bt7kAIYUFQnbMsifye3qxp1fmi72H9E2VjifJ8RNsQbK/03Z9sg4Lu/0yHfR4VfAqRNqgtdcPg6zT/DoIV7byW5QTBcfSySwJk8nSD6aT5+C9AjkXqs7eaz7Y1MJu4ofXZFY/wA+UvhU3Huha5tBMDMNrluwnOZs4=
+  file: praca.pdf
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
