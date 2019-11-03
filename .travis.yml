@@ -9,7 +9,7 @@ cache:
 before_script: cd $TRAVIS_BUILD_DIR/
 script:
 - texliveonfly praca.tex
-- latexmk -pdf praca.tex
+#- latexmk -pdf praca.tex
 deploy:
   provider: releases
   api_key:
