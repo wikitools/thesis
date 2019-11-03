@@ -8,6 +8,3 @@ Do historii zapisywane są tylko akcje kluczowe dla nawigacji - zmiana widoku wy
 Akcje użytkownika są przechowywane jako odpowiednie klasy dziedziczące po klasie UserAction. Posiada ona wirtualne funkcje Execute() oraz UnExecute() służące odpowiednio ponawianiu i cofaniu akcji. Bezpośrednie operacje na historii wykonywane są przez HistoryService. Przechowuje on akcje użytkownika we dwu stosach: pierwszy służy zapisywaniu akcji do cofnięcia, drugi akcji do ponowienia. W momencie wciśnięcia przycisku 2 wywoływana jest funkcja …, która poza wykonaniem zdarzenia wywołującego cofnięcie akcji, zdejmuje tę akcję ze stosu akcji do cofania i wkłada na stos akcji do ponawiania.
 
 Analogicznie do modułu historii zaprojektowane zostało odtwarzanie tras. Pliki zawierające trasy posiadają rozszerzenie .wgroute. Struktura pliku jest prosta - pierwsza cyfra służy rozróżnieniu akcji użytkownika. Jeśli jest to akcja wybrania węzła, to po średniku wpisywane jest ID węzła, który został wybrany. 
-
-
-
