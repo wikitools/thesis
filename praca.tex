@@ -2,7 +2,12 @@
 
 \usepackage{listing_schemat}
 
+\usepackage{csquotes}
+\usepackage[polish, USenglish]{babel}
+\usepackage{url}
+
 \begin{document}
+\selectlanguage{polish}
 
 %\includepdf{meta/strona_tytulowa.pdf}
 %\includepdf{meta/oswiadczenie.pdf}
@@ -24,7 +29,9 @@
 \input{rozdzialy/7_podsumowanie/rozdzial.tex}
 
 
-\input{meta/Bibliografia.tex}
+\bibliographystyle{plain}
+\bibliography{meta/bibliografia}
+\addcontentsline{toc}{chapter}{Wykaz literatury}
 
 \renewcommand{\baselinestretch}{1.0}\normalsize
 \addcontentsline{toc}{chapter}{\listfigurename}
