@@ -6,6 +6,7 @@ data = [
 	[['dane', 'Przygotowywanie danych wejściowych'], [['zrodlo', 'Źródło danych'], ['pobieranie', 'Pobieranie i dekompresja'], ['parsowanie', 'Parsowanie informacji'], ['struktura', 'Tworzenie struktury grafu'], ['narzedzie', 'Narzędzie WikiGraph Parser']]],
 	[['implementacja', 'Implementacja głównej aplikacji WikiGraph'], [['model', 'Model danych'], ['reprez_wizualna', 'Wizualna reprezentacja węzłów i połączeń'], ['tryby_widoki', 'Tryby poruszania się i widoki węzła'], ['historia_trasy', 'Historia przeglądania oraz zaprogramowane trasy'], ['integracja_cave', 'Integracja z jaskinią'], ['konsola', 'Konsola operatora'], ['Linia_czasu', 'Linia czasu']]],
 	[['konfiguracja', 'Konfiguracja i uruchamianie'], []],
+	[['eksperyment', 'Eksperyment'], []],
 	[['podsumowanie', 'Podsumowanie'], []]
 ]
 output = '../rozdzialy'
