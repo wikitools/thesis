@@ -9,6 +9,8 @@ texliveonfly latexmk
 collection-langeuropean
 collection-fontsrecommended
 
+babel-polish
+
 # LuaTeX
 luaotfload
 
