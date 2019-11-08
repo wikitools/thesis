@@ -1,0 +1,24 @@
+\newcommand\img[4]{
+	\begin{figure*}[!h]
+		\begin{center}
+			\includegraphics[width=#4\textwidth]{#1}
+			\caption{#2}
+			\label{fig:#3}
+		\end{center}
+	\end{figure*}
+} 
+
+\newcommand\tabela[4]{
+	\begin{table}[!h]
+		\begin{center}
+			\bgroup
+			\def\arraystretch{1.5}
+			\begin{tabular}{ #2 }
+				#1
+			\end{tabular}
+			\egroup
+		\end{center}
+		\caption{#3}
+		\label{tab:#4}
+	\end{table}
+}
