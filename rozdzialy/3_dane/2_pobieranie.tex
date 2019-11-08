@@ -26,9 +26,9 @@ Serwis Wikimedia Downloads oprócz skompresowanych plików zrzutów posiada rów
 Na potrzeby naszej aplikacji potrzebujemy danych z następujących trzech plików:
 
 \begin{enumerate}[label=\textbullet]
-    \item[\lstinline!page.sql.gz!] – posiada identyfikatory stron artykułów i kategorii, ich przestrzenie nazw oraz tytuły (reszta informacji nie jest wykorzystywana),
-    \item[\lstinline!pagelinks.sql.gz!] – zawiera spis wewnętrznych połączeń między artykułami,
-    \item[\lstinline!categorylinks.sql.gz!] – zawiera, analogiczny do poprzedniego pliku, spis połączeń między kategoriami oraz między artykułami a kategoriami.
+    \item \lstinline!page.sql.gz! – posiada identyfikatory stron artykułów i kategorii, ich przestrzenie nazw oraz tytuły (reszta informacji nie jest wykorzystywana),
+    \item \lstinline!pagelinks.sql.gz! – zawiera spis wewnętrznych połączeń między artykułami,
+    \item \lstinline!categorylinks.sql.gz! – zawiera, analogiczny do poprzedniego pliku, spis połączeń między kategoriami oraz między artykułami a kategoriami.
 \end{enumerate}
 
 Rozmiary wymienionych plików zależą od wielkości Wikipedii, z której pochodzą. Suma rozmiarów tych trzech plików dla angielskiej Wikipedii wynosi około 10GB, zaś dla Polskiej około 1GB. Istnieje także wiele innych, drobniejszych encyklopedii (w mniej popularnych językach oraz zawierających dane z innych projektów). Ich rozmiary mogą mieścić się w kilku megabajtach. Wielkość danych po dekompresji z formatu \lstinline!.gz! jest wstanie wzrosnąć nawet dziesięciokrotnie.
