@@ -6,7 +6,7 @@ INSERT INTO `page` VALUES
     (10,0,'AccessibleComputing','',1,0,0.33167112649574004,'20191003224230','20190105021557',854851586,94,'wikitext',NULL),
     (12,0,'Anarchism','',0,0,0.786172332974311,'20191101063615','20191031183024',923631615,104479,'wikitext',NULL),
     (13,0,'AfghanistanHistory','',1,0,0.0621502865684687,'20191029091312','20190618192734',783865149,90,'wikitext',NULL),
-    -- \dots
+    -- ...
 \end{lstlisting}
 
 Plik \textit{page.sql} zawiera nieposortowane informacje o różnych stronach Wikipedii. W celu odróżnienia strony artykułu od strony kategorii (wraz z informacjami o ich identyfikatorach i tytułach) używana jest druga wartość w ciągu pojedynczego wpisu, oznaczająca przestrzeń nazw (parametr \textit{page_namespace}). Według dokumentacji MediaWiki, liczba równa 0 oznacza typową stronę artykułu, a liczba 14 stronę typu kategoria. Na podstawie tego rozróżnienia tworzone są dwa nowe pliki zawierające 2-elementowe krotki, których pierwszym elementem jest identyfikator strony, a drugim jego tytuł.
