@@ -1,1 +1,22 @@
 \section{Wizualna reprezentacja węzłów i połączeń}
+\label{sec:graf-reprezentacja}
+\newcommand\mapitem[3]{
+	\item \textbf{#1 $\,\to\,$ #2}
+
+	#3
+}
+
+% Przechowywanie grafu w pamięci
+\noindent
+Graf jest przechowywany w pamięci aplikacji jako zbiór map:
+\begin{enumerate}[label=\textbullet]
+	\mapitem{Identyfikator węzła}{Model węzła}{Opisana już mapa warstwy modelu}
+	\mapitem{Model węzła}{Obiekt wizualny węzła}{Przechowuje widoczne aktualnie w aplikacji węzły jako wartości przypisane do modelu reprezentowanego węzła. Obiekt wizualny przechowuje numer ID węzła co zamyka pętlę powiązań i w efekcie pozwala na uzyskanie informacji o węźle (z jego modelu) mając na wejściu jego obiekt wizualny na podstawie dwóch map.}
+	\mapitem{Model połączenia}{Obiekt wizualny połączenia}{Mapa analogiczna do poprzedniej, przechowująca informacje o połączeniach między węzłami. Podobnie obiekt wizualny połączenia przechowuje dwa identyfikatory węzłów które łączy.}
+	
+	\mapitem{Model połączenia}{Obiekt wizualny reprezentacji węzła końcowego połączenia}{Mapa przechowująca pomocnicze reprezentacje węzłów końcowych połączenia opisane szczegółowo w \ref{sec:tryby-widoki}.}
+\end{enumerate}
+
+% GO Node - Billboard Shader
+% GO Connection - B-Spline
+
