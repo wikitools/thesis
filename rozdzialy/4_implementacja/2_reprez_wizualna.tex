@@ -1,7 +1,7 @@
 \section{Wizualna reprezentacja węzłów i połączeń}
 \label{sec:graf-reprezentacja}
 \newcommand\mapitem[3]{
-	\item \textbf{#1 $\,\to\,$ #2}
+	\item \textbf{#1 $\to$ #2}
 
 	#3
 }
@@ -28,7 +28,26 @@ Takie rozwiązanie powoduje jednak pewną komplikację. Płaszczyzna z grafiką,
 
 Poprawnym rozwiązaniem jest użycie shadera. W przeciwieństwie do standardowych skryptów aplikacji jego działanie jest zrównoleglone przez kartę graficzną dla potencjalnie każdego przetwarzanego wierzchołka. Tu jednak natrafiliśmy na kolejny problem. Powszechnie stosowane są tak zwane ``Billboard Shadery'' które służą dokładnie do interesującego nas celu, jednak w szczególnym przypadku aplikacji budowanej na środowisko LZWP są niewystarczające. Każda ściana jaskini jest kontrolowana przez osobny komputer z osobną instancją aplikacji posiadającą osobną kamerę skierowaną w kierunku danej ściany. Billboard Shader odwraca obiekty węzłów w kierunku kamery na lokalnej ścianie co powoduje że jeśli dany obiekt znajdzie się w pozycji wyświetlanej na przecięciu ekranów (połowa węzła na jednej a połowa na drugiej ścianie jaskini), na każdym z odpowiadających za ściany komputerów zostanie obrócony w lekko innym kierunku. W efekcie części obiektu węzła mogą nie być spójne.
 
-Aby rozwiązać ten problem należało wybrać obiekt wspólny dla wszystkich ścian a następnie obracać grafiki węzłów w stosunku do niego zamiast do kamer. To wymagało ręcznego przepisania shadera ponieważ nie jest częstym problemem którego rozwiązanie byłoby ogólnie dostępne do użycia.
+Aby rozwiązać ten problem należało wybrać obiekt wspólny dla wszystkich ścian a następnie obracać grafiki węzłów w względem niego zamiast kamer. To wymagało ręcznego przepisania shadera z powodu braku gotowego i dostępnego rozwiązania. Problem sprowadził się do stworzenia macierzy \(R\) przekształcającej wektor trójwymiarowy \(a\) w \(b\) - w tym przypadku domyślny zwrot grafiki węzła w kierunek wybranego obiektu wspólnego. Implementacja jest wzorowana na wpisie z forum matematycznego \cite{BillboardShaderFormula}.
+
+\newcommand\dotProd{a \cdot b}
+\newcommand\crossProd[1]{(\overrightarrow{a \times b})_#1}
+\begin{equation}
+	R = I + [v]_{\times} + [v]_{\times}^2\frac{1}{1 + c}
+\end{equation}
+\begin{equation}
+	[v]_{\times} \stackrel{\rm def}{=} 
+	\begin{bmatrix}
+		0 & -v_z & v_y\\
+		v_z & 0 & -v_x\\
+		-v_y & v_x & 0
+	\end{bmatrix}
+\end{equation}
+gdzie:
+\begin{itemize}
+	\item \(v = a \times b\)
+	\item \(c = a \cdot b\)
+\end{itemize}
 
 % GO Connection - B-Spline
 \paragraph{Reprezentacja połączenia} 
