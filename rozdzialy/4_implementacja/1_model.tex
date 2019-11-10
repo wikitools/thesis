@@ -1,1 +1,23 @@
 \section{Model danych}
+Model danych aplikacji tworzony jest na podstawie plików opisanych w \ref{sec:data-files}. Są one otwierane jako strumienie używając klasy \lstinline[basicstyle=\normalsize]{FileStream} co pozwala na jednakowy dostęp do każdej części pliku. 
+
+Listing \ref{lst:node-model} zawiera używany przez aplikację model węzła. Przy żądaniu załadowania do pamięci węzła o konkretnym numerze (\ref{line:nm-id}) najpierw odczytywane są informacje z pliku mapy a następnie na ich podstawie wczytywany jest tytuł (\ref{line:nm-title}) oraz połączenia węzła (\ref{line:nm-children} i \ref{line:nm-parents}). Określany jest też typ węzła (\ref{line:nm-type}) oraz jego identyfikator przypisany przez Wikipedię (\ref{line:nm-wikiid}). Na koniec nowo wczytanemu węzłowi zostaje przypisany stan (\ref{line:nm-state}) aktywny.
+\begin{lstlisting}[caption={Model węzła grafu}, label=lst:node-model]
+public class Node {
+	public uint[] Children; %*\label{line:nm-children}*)
+	public uint[] Parents; %*\label{line:nm-parents}*)
+
+	public readonly uint ID; %*\label{line:nm-id}*)
+	public uint WikiID; %*\label{line:nm-wikiid}*)
+
+	public string Title; %*\label{line:nm-title}*)
+
+	public NodeType Type; %*\label{line:nm-type}*)
+	public NodeState State; %*\label{line:nm-state}*)
+	%*\dots*)
+}
+\end{lstlisting}
+
+Załadowane węzły są dodawane jako wartości w mapie ID $\,\to\,$ \codeinline{Node} co pozwala na późniejsze szybkie uzyskanie modelu na podstawie jego identyfikatora. Przechowywanie grafu w pamięci zostanie szczegółowo opisane w \ref{sec:graf-reprezentacja}.
+
+W wyniku interakcji użytkownika z węzłem pokazywane są połączenia, Zostały one zamodelowane jako zbiór dwóch węzłów. Przy tym przyjmujemy że połączenie zaczyna się w węźle z którym nastąpiła interakcja.
