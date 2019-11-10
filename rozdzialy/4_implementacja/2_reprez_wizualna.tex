@@ -18,5 +18,18 @@ Graf jest przechowywany w pamięci aplikacji jako zbiór map:
 \end{enumerate}
 
 % GO Node - Billboard Shader
+\paragraph{Reprezentacja węzła} Z uwagi na dużą ilość jednocześnie załadowanych węzłów (kilka do kilkunastu tysięcy na raz) konieczne okazały się pewne optymalizacje poprawiające szybkość działania aplikacji. 
+
+Obiekty węzłów nie są w większości przypadków tworzone dynamicznie. Zamiast tego przy starcie aplikacji tworzona jest pula nieużywanych obiektów. W momencie ładowania węzła nowy obiekt wizualny tworzony jest tylko w przypadku kiedy pula została wyczerpana. Przy usuwaniu węzła jego reprezentacja nie jest niszczona tylko zwracana do puli w celu przyszłego wykorzystania.
+
+W celu odciążenia karty graficznej zrezygnowaliśmy z wyświetlania każdego węzła jako trójwymiarowego modelu (jak na przykład kuli). Reprezentacją węzła jest prosta grafika rastrowa. Jest ona dużo szybsza do przetworzenia ponieważ zawiera tylko cztery wierzchołki - jest to kwadratowa płaszczyzna z nałożoną teksturą. Dzięki temu jesteśmy w stanie wyświetlić więcej węzłów na raz bez utraty płynności działania aplikacji.
+
+Takie rozwiązanie powoduje jednak pewną komplikację. Płaszczyzna z grafiką, w przeciwieństwie do przestrzennego modelu, jest dobrze widoczna tylko kiedy kamera jest ustawiona bezpośrednio przed nią. Pojawia się więc potrzeba obracania obiektu węzła tak aby był on zawsze zwrócony przodem do użytkownika zwiedzającego graf. Najprostszym rozwiązaniem byłoby dodanie krótkiego skryptu do każdego obiektu który przy każdym odświeżeniu ekranu obracałby reprezentację węzła w stronę kamery. Nie jest to jednak dobre rozwiązanie z powodu narzutu czasowego. W każdej klatce ta sama operacja byłaby wykonywana potencjalnie kilkanaście tysięcy razy co mogłoby mieć widoczny efekt na szybkości działania.
+
+Poprawnym rozwiązaniem jest użycie shadera. W przeciwieństwie do standardowych skryptów aplikacji jego działanie jest zrównoleglone przez kartę graficzną dla potencjalnie każdego przetwarzanego wierzchołka. Tu jednak natrafiliśmy na kolejny problem. Powszechnie stosowane są tak zwane ``Billboard Shadery'' które służą dokładnie do interesującego nas celu, jednak w szczególnym przypadku aplikacji budowanej na środowisko LZWP są niewystarczające. Każda ściana jaskini jest kontrolowana przez osobny komputer z osobną instancją aplikacji posiadającą osobną kamerę skierowaną w kierunku danej ściany. Billboard Shader odwraca obiekty węzłów w kierunku kamery na lokalnej ścianie co powoduje że jeśli dany obiekt znajdzie się w pozycji wyświetlanej na przecięciu ekranów (połowa węzła na jednej a połowa na drugiej ścianie jaskini), na każdym z odpowiadających za ściany komputerów zostanie obrócony w lekko innym kierunku. W efekcie części obiektu węzła mogą nie być spójne.
+
+Aby rozwiązać ten problem należało wybrać obiekt wspólny dla wszystkich ścian a następnie obracać grafiki węzłów w stosunku do niego zamiast do kamer. To wymagało ręcznego przepisania shadera ponieważ nie jest częstym problemem którego rozwiązanie byłoby ogólnie dostępne do użycia.
+
 % GO Connection - B-Spline
+\paragraph{Reprezentacja połączenia} 
 
