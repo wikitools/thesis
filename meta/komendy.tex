@@ -24,3 +24,10 @@
 }
 
 \newcommand\codeinline[1]{\lstinline[basicstyle=\normalsize]{#1}}
+
+\makeatletter
+\newcommand{\sectionauthor}[1]{
+{\vspace*{-5pt}\hspace*{4pt}\footnotesize\itshape\MakeUppercase{#1}
+\par\nobreak\vspace*{10pt}}
+\@afterheading}
+\makeatother
