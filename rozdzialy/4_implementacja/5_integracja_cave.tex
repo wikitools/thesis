@@ -1,8 +1,37 @@
 \section{Integracja z jaskinią}
 \sectionauthor{Stanisław Góra}
 % LZWPLib
-Przystosowanie aplikacji do działania w środowisku LZWP
+Przystosowanie aplikacji do działania w środowisku LZWP dzieli się na dwa podzadania: obsługa wejścia użytkownika oraz synchronizacja stanu aplikacji pomiędzy komputerami obsługującymi ściany jaskini. Reszta integracji jest zapewniana przez stworzoną przez pracowników LZWP bibliotekę.
 
 % Input Module
+\paragraph{Moduł wejścia}
+W założeniu aplikacja ma wspierać dwie metody interakcji użytkownika, nazywane później środowiskami:
+\begin{enumerate}[label=\textbullet]
+	\item \textbf{PC} - gdzie użytkownik posługuje się klawiaturą i myszą, używane głównie podczas procesu wytwarzania aplikacji
+	\item \textbf{Jaskini} - gdzie użytkownik nosi okulary i trzyma specjalny kontroler nazywany flystickiem
+\end{enumerate}
+Aby ułatwić sobie wytwarzanie głównej logiki aplikacji, wejście zostało odseparowane w osobny moduł który może być przed uruchomieniem ustawiony w jeden z dwóch trybów, odpowiadającym każdemu środowisku. Tryb ten definiuje jakiego rodzaju wejścia ma nasłuchiwać aplikacja. Moduł wejścia składa się z trzech mniejszych części:
+\begin{enumerate}[label=\textbullet]
+	\item \textbf{Definicje akcji użytkownika} - ustala wspólny interfejs dla każdej akcji użytkownika dostępnej w aplikacji. Są to między innymi: 
+	\begin{enumerate}[label=\textbullet]
+		\item Użycie przycisku klawiatury i myszy (PC) lub flysticka (Jaskinia)
+		\item Przesunięcie myszy (PC) lub flysticka (Jaskinia)
+	\end{enumerate}
+	Oprócz tego jest odpowiedzialna za nasłuchiwanie wykonania przez użytkownika swojej akcji i odpowiednie powiadomienie aplikacji.
+	
+	\item \textbf{Definicje akcji aplikacji} - spis akcji wykonywanych w aplikacji. Są to między innymi: 
+	\begin{enumerate}[label=\textbullet]
+		\item Wybranie lub podświetlenie węzła
+		\item Poruszanie się po grafie
+		\item Zmiana zakresu wyświetlanych połączeń
+	\end{enumerate}
+	Każda akcja ma swój typ (opisany w poprzednim punkcie). Dostępny jest też interfejs dzięki któremu możliwe jest łatwe wybranie konkretnego przycisku (w każdym ze środowisk) który ma aktywować daną akcję \ref{fig:input-interface}.
+	
+	\item \textbf{Procesor akcji użytkownika} - odpowiada za połączenie modułu wejścia z pozostałą częścią aplikacji poprzez powiadamianie jej o każdej wykonanej przez użytkownika akcji po ewentualnym wstępnym przetworzeniu sygnału wejściowego.
+\end{enumerate}
+
+\img{\chapterPath/img/input-interface.png}{Fragment interfejsu wyboru przycisków dla środowiska PC}{input-interface}{.6}
 
 % Networking
+\paragraph{Synchronizacja stanu}
+
