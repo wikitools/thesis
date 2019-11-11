@@ -2,7 +2,7 @@
 \sectionauthor{Mikołaj Mirko}
 \label{sec:data-parsing}
 Po pobraniu i rozpakowaniu rozpoczyna się proces parsowania danych. Każdy z plików \textit{.sql} składa się z definicji struktury tabeli bazy danych oraz listy wpisów w postaci ukazanej na Listing \ref{page_sql}. Parsowanie informacji polega na przejściu po każdej linijce danego pliku, wydostaniu kolejnych wartości następujących po wyrażeniu \textit{VALUES} i zapisaniu tylko tych, które są istotne dla dalszego przetwarzania.
-
+\vspace{4mm}
 \begin{lstlisting}[language=SQL,frame=single,caption={Fragment pliku enwiki-20191101-page.sql zawierający dane o stronach},label=page_sql]
 INSERT INTO `page` VALUES
     (10,0,'AccessibleComputing','',1,0,0.33167112649574004,'20191003224230','20190105021557',854851586,94,'wikitext',NULL),
