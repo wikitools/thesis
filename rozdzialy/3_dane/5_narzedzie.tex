@@ -1,1 +1,33 @@
 \section{Narzędzie WikiGraph Parser}
+\sectionauthor{Mikołaj Mirko}
+\label{sec:parser-tool}
+Proces pozyskiwania danych opisany w podrozdziałach \ref{sec:data-source} - \ref{sec:data-files} został zautomatyzowany i zaimplementowany w postaci dodatkowego, pomocniczego programu. Aplikacja WikiGraph Parser (Rysunek \ref{fig:parser1}) ma na celu usprawnienie pracy z pozyskiwanymi danymi oraz zmniejszyć ryzyko wystąpienia nieprawidłowości. Aplikacja została napisana w języku C# (z platformą docelową .NET Framework 4.6.1) i posiada interfejs graficzny stworzony za pomocą frameworka UI WPF.
+
+Interfejs programu został zaprojektowany z myślą o 10 heurystykach Nielsena \cite{Heuristics}. Zastosowano estetyczny i minimalistyczny wygląd wykorzystujący typowe standardy aplikacji okienkowych. W wielu miejscach użytkownik jest informowany o stanie programu za pomocą etykiet oraz symboli graficznych. Walidacja pozwala uniknąć przewidywalnych błędów, a w razie wystąpienia nieoczekiwanych problemów pojawiają się opisowe okna dialogowe. Pomoc zawarta jest w postaci tytułów sekcji i podpowiedzi, a dokumentacja (instrukcja obsługi) opisana jest w rozdziale \ref{chap:config}. Konfiguracja i uruchamianie.
+
+\img{\chapterPath/img/parser1.png}{Ekran konfiguracji parametrów WikiGraph Parser-a}{parser1}{0.8}
+
+Użytkownik obsługujący WikiGraph Parser ma możliwość wyboru interesującego go źródła informacji oraz określenie ścieżki aplikacji, wykorzystującej stworzone zasoby. Ograniczając go do wyboru tylko tych dwóch parametrów tworzony jest prosty interfejs, zachowując jednocześnie swobodę i kontrolę użytkowania. Giles Colborne w swojej książce ``Prostota i użyteczność'' \cite{ProstotaUzytecznosc} opisuje zasadę zachowania złożoności, według której zabiegi usuwania i ukrywania funkcjonalności przed użytkownikiem sprowadzają interfejs do jego minimalnego poziomu złożoności.
+
+\begin{center}
+	\hyphenblockcquote{polish}{ProstotaUzytecznosc}{
+        Cała sztuka projektowania prostych rozwiązań polega na przenoszeniu złożoności w odpowiednie miejsce, tak aby korzystanie z samego narzędzia było łatwe.
+	}
+\end{center}
+
+\img{\chapterPath/img/parser2.png}{Ekran statusu postępu przetwarzania danych}{parser2}{0.8}
+
+Przetwarzanie danych jest rozpoczynane po naciśnięciu przycisku \textit{Start}. Na ekranie z informacją o aktualnym postępie (Rysunek \ref{fig:parser2}) można wyróżnić pięć kroków. Są to:
+
+\begin{enumerate}[label=\textbullet]
+    \item \textit{Downloading dumps} \linebreak
+    Na podstawie wybranego zrzutu bazy pobierany jest odpowiedni zestaw plików (szczegółowo opisany w podrozdziale \ref{sec:data-download}). Do tego zadania wykorzystana jest klasa WebClient.
+    \item \textit{Decompressing dumps} \linebreak
+    Dekompresja pobranych plików odbywa się za pomocą klasy GzipStream. Po tym kroku pliki \textit{.sql} gotowe są do przetwarzania.
+    \item \textit{Reading data from dumps} \linebreak
+    Podczas tego kroku tworzone są pliki z rozszerzeniem \textit{.map}, zawierające tylko te dane, które są wykorzystywane do dalszego przetwarzania. Na tym etapie odbywa się również sortowanie danych – użyty jest pakiet ``Sortiously''\cite{Github:Sortiously}.
+    \item \textit{Generating WikiGraph files} \linebreak
+    Ten krok przetwarza przerobione i uporządkowane dane do plików grafu o strukturze binarnej, czytanych przez aplikację główną (podrozdział \ref{sec:data-files}). Wykorzystane są m.in. klasy takie jak BinaryWriter oraz BinaryConverter.
+    \item \textit{Saving files and cleaning up} \linebreak	
+    Po zakończeniu poprzednich etapów, niepotrzebne, tymczasowe pliki zostają usunięte z dysku. We wskazanym folderze powinna pojawić się struktura folderów wspierająca możliwość posiadania wielu wersji na raz.
+\end{enumerate}

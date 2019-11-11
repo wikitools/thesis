@@ -1,4 +1,6 @@
 \section{Pobieranie i dekompresja}
+\sectionauthor{Mikołaj Mirko}
+\label{sec:data-download}
 Serwis Wikimedia Downloads oprócz skompresowanych plików zrzutów posiada również plik o nazwie \textit{index.json}. Zawiera on spis wszystkich ostatnio wykonanych operacji archiwizacyjnych na bazie danych. Na jego podstawie łatwo uzyskać bezpośrednie adresy URL do interesujących nas plików, a także dodatkowe informacje o ich rozmiarze i dacie stworzenia. Zawiera on również status przetwarzania każdej porcji danych – wszystkie pobierane pliki muszą być zakończone w ramach tego samego zrzutu, inaczej nie będą ze sobą zgodne, co uniemożliwi generowanie plików wejściowych aplikacji. Listing \ref{dump_index} przedstawia przykładowy fragment pliku \textit{index.json}.
 
 \begin{lstlisting}[frame=single,caption={Fragment informacji o ostatnim zrzucie bazy danych polskiej Wikipedii},label=dump_index]
