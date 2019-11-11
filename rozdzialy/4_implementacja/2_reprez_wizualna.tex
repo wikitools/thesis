@@ -22,7 +22,7 @@ Graf jest przechowywany w pamięci aplikacji jako zbiór map:
 
 Obiekty węzłów nie są w większości przypadków tworzone dynamicznie. Zamiast tego przy starcie aplikacji tworzona jest pula nieużywanych obiektów. W momencie ładowania węzła nowy obiekt wizualny tworzony jest tylko w przypadku kiedy pula została wyczerpana. Przy usuwaniu węzła jego reprezentacja nie jest niszczona tylko zwracana do puli w celu przyszłego wykorzystania.
 
-W celu odciążenia karty graficznej zrezygnowaliśmy z wyświetlania każdego węzła jako trójwymiarowego modelu (jak na przykład kuli). Reprezentacją węzła jest prosta grafika rastrowa. Jest ona dużo szybsza do przetworzenia ponieważ zawiera tylko cztery wierzchołki - jest to kwadratowa płaszczyzna z nałożoną teksturą. Dzięki temu jesteśmy w stanie wyświetlić więcej węzłów na raz bez utraty płynności działania aplikacji.
+W celu odciążenia karty graficznej zrezygnowaliśmy z wyświetlania każdego węzła jako trójwymiarowego modelu (jak na przykład kuli). Reprezentacją węzła jest prosta grafika rastrowa \ref{fig:node-connections}. Jest ona dużo szybsza do przetworzenia ponieważ zawiera tylko cztery wierzchołki - jest to kwadratowa płaszczyzna z nałożoną teksturą. Dzięki temu jesteśmy w stanie wyświetlić więcej węzłów na raz bez utraty płynności działania aplikacji.
 
 Takie rozwiązanie powoduje jednak pewną komplikację. Płaszczyzna z grafiką, w przeciwieństwie do przestrzennego modelu, jest dobrze widoczna tylko kiedy kamera jest ustawiona bezpośrednio przed nią. Pojawia się więc potrzeba obracania obiektu węzła tak aby był on zawsze zwrócony przodem do użytkownika zwiedzającego graf. Najprostszym rozwiązaniem byłoby dodanie krótkiego skryptu do każdego obiektu który przy każdym odświeżeniu ekranu obracałby reprezentację węzła w stronę kamery. Nie jest to jednak dobre rozwiązanie z powodu narzutu czasowego. W każdej klatce ta sama operacja byłaby wykonywana potencjalnie kilkanaście tysięcy razy co mogłoby mieć widoczny efekt na szybkości działania.
 
@@ -51,4 +51,6 @@ gdzie:
 
 % GO Connection - B-Spline
 \paragraph{Reprezentacja połączenia} 
+Połączenia są w aplikacji reprezentowane jako krzywe \ref{fig:node-connections}. Ich kształt został najpierw zawinięty w górę tak aby przechodzić przez stworzone dla każdego połączenia węzły pomocnicze opisane w \ref{sec:tryby-widoki} a następnie zmierza łukiem w kierunku faktycznego węzła końcowego. Na początku do tworzenia tras połączeń używane były krzywe Béziera jednak obecnie z powodu ich skomplikowanego kształtu zastąpione zostały krzywymi B-Spline zaimplemenowanymi według algorytmu De Boor'a \cite{Wiki:DeBoorsAlg}.
 
+\img{\chapterPath/img/connections.png}{Wygląd węzłów i połączeń w aplikacji}{node-connections}{.9}
