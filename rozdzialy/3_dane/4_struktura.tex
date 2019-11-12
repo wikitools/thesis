@@ -5,8 +5,8 @@ Celem tego etapu jest wytworzenie plików na których operuje aplikacja. Podczas
 \begin{enumerate}
     \item Zawierać w sobie pełną informację na temat struktury skierowanego grafu połączeń pomiędzy kolejnymi węzłami.
     \item Rozróżniać czy dany węzeł reprezentuje artykuł czy kategorię.
-    \item Przechowywać tytuły z wikipedii każdego węzła.
-    \item Przechowywać ID strony na wikipedii.
+    \item Przechowywać tytuły z Wikipedii każdego węzła.
+    \item Przechowywać ID strony na Wikipedii.
     \item Umożliwiać szybkie odnajdywanie interesujących nas danych o konkretnym węźle bez przeszukiwania wszystkich plików za każdym razem, gdy potrzebujemy wydobyć jakąś informację.
     \item Przechowywać dane w skompresowanej formie, bez zbędnych bajtów i redundantnej informacji.
 \end{enumerate}
@@ -23,7 +23,7 @@ Do finalnego poprawnego generowania plików potrzebne są dodatkowe pliki:
     \item Kategorie do których należy dana kategoria (odwrotność categorylinksfromcategory.map)
 \end{itemize}
 
-Dane których potrzebujemy nie znajdziemy w plikach SQL, lecz posiadając opisane w sekcji 3.3 pliki .map jesteśmy na ich podstawie wygenerować brakujące nam informacje.
+Dane których potrzebujemy nie znajdziemy w plikach SQL, lecz posiadając opisane w sekcji 3.3 pliki \textit{.map} jesteśmy na ich podstawie wygenerować brakujące nam informacje.
 Aby to zrobić, odczytujemy interesujący nas plik .map i czytając linia po linii wypełniamy Dictionary o następującej formie:
 
 Dictionary<int, List<string>> reverseMap = new Dictionary<int, List<string>>();
@@ -33,31 +33,32 @@ Jako, że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efek
 \subsection{Opis poszczególnych plików}
 Aby osiągnąć wymagania które sobie postawiliśmy, opracowaliśmy strukturę rozbitą na 4 pliki. Wszystkie posiadają tą samą nazwę - jest to nazwa wersji wikipedii którą opisują (np. simple-wiki lub pl-wiki), a różnią się rozszerzeniami - gdyż każdy plik posiada inną strukturę.
 
-\subsubsection{Plik mapy .wgm}
+\subsubsection{Plik mapy \textit{.wgm}}
 Jest to plik instruujący aplikację na którym miejscu w innych plikach odnajdzie interesujące nas dane.
-Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o poniższej strukturze. Offset informuje nas, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
+Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o strukturze opisanej w Tabeli \ref{tab:structure-mapfile}. Offset informuje nas, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
 
+\tabela{
+ \hline
+ 4 bajty & 4 bajty & 4 bajty \\ [0.5ex] 
+ \hline\hline
+ Offset w pliku \textit{.wgg} & Offset w pliku \textit{.wgt} & ID Wikipedii \\\hline
+}{|c | c | c|p{0.4\textwidth}| }{Reprezentacja pojedynczego węzła w pliku \textit{.wgm}}{structure-mapfile}
 
-4 BYTES
-4 BYTES
-4 BYTES
-Offset w pliku graph.wg
-Offset w pliku titles.wg
-ID Wikipedii danej strony
+W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na “nasze” ID - czyli kolejność danego węzła w pliku .map. W aplikacji oraz w pozostałych plikach, gdy odnosimy się do jakiegoś węzła nie używamy jego faktycznego ID wikipedii, tylko właśnie tą kolejność - licząc od zera. Znając ją, możemy pomnożyć ją przez rozmiar każdego wpisu (12) i otrzymujemy Offset w pliku \textit{.wgm}.
+Podczas konstrukcji plików, informacje o danym węźle są jednocześnie umieszczane we wszystkich plikach. Dzięki temu nie ma potrzeby przechowywać danej informującej ile bajtów należy odczytać. Odczytu należy dokonać aż do pozycji Offset który znajduje się w następnym węźle z pliku \textit{.wgm} - czyli 12 bajtów dalej.
 
-W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na “nasze” ID - czyli kolejność danego węzła w pliku .map. W aplikacji oraz w pozostałych plikach, gdy odnosimy się do jakiegoś węzła nie używamy jego faktycznego ID wikipedii, tylko właśnie tą kolejność - licząc od zera. Znając ją, możemy pomnożyć ją przez rozmiar każdego wpisu (12) i otrzymujemy Offset w pliku .map.
-Podczas konstrukcji plików, informacje o danym węźle są jednocześnie umieszczane we wszystkich plikach. Dzięki temu nie ma potrzeby przechowywać danej informującej ile bajtów należy odczytać. Odczytu należy dokonać aż do pozycji Offset który znajduje się w następnym węźle z pliku .wgm - czyli 12 bajtów dalej.
-
-\subsubsection{Plik struktury grafu .wgg}
+\subsubsection{Plik struktury grafu \textit{.wgg}}
 
 Jest to plik zawierający dane połączeń skierowanego grafu. Rozróżniane są połączenia: (\#1) od których węzłów możemy dojść do aktualnego węzła oraz (\#2) do których węzłów prowadzi nasz węzeł.
 
-2 BYTES
-3 BYTES * N
-3 BYTES * X
-Ilość połączeń typu (\#1) (N)
-a\#1 b\#2 c\#3 … z\#N
-A\#1 B\#2 C\#3 … Z\#X
+
+\tabela{
+ \hline
+ 2 bajty & 3 bajty * N & 3 bajty * X \\ [0.5ex] 
+ \hline\hline
+ Ilość połączeń typu (\#1) (N) & a\#1 b\#2 c\#3 … z\#N & A\#1 B\#2 C\#3 … Z\#X \\\hline
+}{|c | c | c|p{0.4\textwidth}| }{Reprezentacja pojedynczego węzła w pliku \textit{.wgg}}{structure-graphfile}
+
 A, B, C oraz a, b, c to nie są ID artykułów wikipedii, lecz informacje, który z kolei artykuł z pliku .wgm mamy na myśli. Jako że ilość węzłów nigdy nie przekracza 224, 3 bajty wystarczają na przekazanie tej informacji.
 
 \subsubsection{Plik informacyjny .wgi}
