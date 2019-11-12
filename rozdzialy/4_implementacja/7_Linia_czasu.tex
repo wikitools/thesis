@@ -1,1 +1,14 @@
 \section{Linia czasu}
+Specyfikacja wymagañ projektu in¿ynierskiego zawiera³a funkcjonalnoœæ dotycz¹c¹ linii czasu. Wybranie daty mia³o spowodowaæ wyœwietlanie tylko takich wêz³ów, których data utworzenia by³a starsza ni¿ wybrana data. Pomog³oby to w przybli¿onej wizualizacji w jak szybki sposób rozrasta³a siê konkretna Wikipedia. Szereg komplikacji spowodowa³ jednak odrzucenie przez nas tej funkcjonalnoœci.
+
+Sterowanie lini¹ czasu mia³o odbywaæ siê za pomoc¹ drugiego kontrolera. Po wciœniêciu przycisku mia³ pokazywaæ siê specjalny interfejs ukazuj¹cy aktualnie wybran¹ datê. Mo¿na w niej by³o wybraæ, przesuwaj¹c joystick w lewo i prawo, miesi¹c lub rok, który nastêpnie da³oby siê zmieniaæ przesuwaj¹c joystick do góry lub w dó³. Zatwierdzenie daty przyciskiem spustu wywo³ywa³oby zmiany w grafie. 
+
+Funkcjonalnoœæ nie zosta³a zaimplementowana g³ównie z powodu braku prostej informacji o stworzeniu artyku³u w g³ównie wykorzystywanym przez nas Ÿródle danych, czyli dumpach WIkipedii. Istniej¹ dumpy zawieraj¹c¹ kompletn¹ historiê edycji artyku³ów, jednak wielkoœæ tych plików jest nieporównywalnie wiêksza w porównaniu ze zwyk³ym wykazem stron czy nawet po³¹czeniami pomiêdzy stronami. Przetworzenie tych plików tylko po to, aby wydobyæ z nich datê pierwszej publikacji strony jest niewymierna do korzyœci wynikaj¹cych z tej funkcjonalnoœci. 
+
+Innym sposobem wydobycia danych mog³oby byæ pozyskiwanie tych informacji przy u¿yciu Wikipedia API. Pomys³ ten jednak nie jest wykonalny z powodu ograniczeñ, które posiada API. Aby zdobyæ informacje dotycz¹ce ka¿dego artyku³u, musielibyœmy wywo³aæ zapytania, których liczba znacznie przewy¿sza maksymaln¹ dopuszczaln¹ liczbê zapytañ dla jednego u¿ytkownika. Przekroczenie tej liczby powoduje zablokowanie adresu IP, z którego pochodzi³y zapytania i utrudnia dalsze pozyskiwanie danych.
+
+Co wiêcej, nasza idea linii czasu nie by³aby dok³adnym odwzorowaniem stanu Wikipedii w wybranym przez u¿ytkownika. Artyku³y i kategorie WIkipedii s¹ bardzo czêsto zmieniane, co implikuje mo¿liwoœæ zmiany po³¹czeñ pomiêdzy artyku³ami. Ponadto artyku³y i kategorie mog¹ byæ tak¿e usuwane. Przechowywanie ca³ej historii stron lub stworzenie plików zawieraj¹cych dok³adn¹ historiê wszystkich wêz³ów, jakie kiedykolwiek pojawi³y siê na Wikipedii, jest niemo¿liwe na zwyk³ych komputerach osobistych z powodu zbyt ma³ej wymaganej przestrzeni na dysku. Nawet jeœli uda³oby siê je zapisaæ, przetwarzanie i wczytywanie takich plików zajê³oby bardzo du¿o czasu i spowodowa³oby nisk¹ responsywnoœæ aplikacji. Nasza wersja linii czasu mog³aby byæ myl¹ca dla nowych u¿ytkowników, którzy mogliby pomyœleæ, ¿e przedstawiana jest im dok³adna wersja Wikipedii w danym czasie.
+
+Wszystkie napotkane trudnoœci sprawi³y, ¿e ostatecznie zrezygnowaliœmy z implementacji tej funkcjonalnoœci. Dodatkowo dziêki temu mo¿liwa jest intuicyjna obs³uga aplikacji za pomoc¹ tylko jednego kontrolera, co znacznie u³atwia u¿ytkownikowi sterowanie w jaskini. 
+
+
