@@ -5,7 +5,15 @@ Specyfika działania aplikacji, związana z wykonywaniem przez użytkownika akcj
 Do historii zapisywane są tylko akcje kluczowe dla nawigacji - zmiana widoku wyświetlania oraz wybieranie węzłów. Inne działania użytkownika nie powodują znaczących zmian w nawigacji po grafie i ich przechowywanie jest bezcelowe. Po naciśnięciu Przycisku 2 na kontrolerze wywoływana jest poprzednia akcja wykonana przez użytkownika. Odpowiednio, aby ponowić cofniętą akcję, należy nacisnąć Przycisk 3. W przypadku braku akcji do ponowienia lub cofnięcia nie jest podejmowane żadne działanie. Wywoływanie i zapisywanie tras dostępne jest z poziomu konsoli operatora opisanej w następnym punkcie.
 
 
-Akcje użytkownika są przechowywane jako odpowiednie klasy dziedziczące po klasie UserAction. Posiada ona wirtualne funkcje Execute() oraz UnExecute() służące odpowiednio ponawianiu i cofaniu akcji. Każda akcja posiada także swojego własnego delegata, zależnego od typu akcji. 
+Akcje użytkownika są przechowywane jako odpowiednie klasy dziedziczące po interfejsie UserAction. Posiada on wirtualne funkcje Execute() oraz UnExecute() służące odpowiednio ponawianiu i cofaniu akcji. Każda akcja posiada także swojego własnego delegata, zależnego od typu akcji. 
+
+\begin{lstlisting}[caption={Interfejs UserAction}, label=lst:IUserAction]
+public interface UserAction {
+		void Execute();
+		void UnExecute();
+}
+\end{lstlisting}
+
 
 Bezpośrednie operacje na historii wykonywane są przez HistoryService. Przechowuje on akcje użytkownika we dwu stosach: pierwszy służy zapisywaniu akcji do cofnięcia, drugi akcji do ponowienia. W momencie wciśnięcia przycisku 2 wyzwalane jest zdarzenie wywołujące funkcję UndoAction(), która poza wykonaniem kolejnego zdarzenia wywołującego funkcję akcji odpowiedzialnej za cofanie, zdejmuje tę akcję ze stosu akcji do cofania i wkłada na stos akcji do ponawiania.
 
