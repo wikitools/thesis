@@ -39,3 +39,28 @@ Jak już zostało wspomniane, w LZWP każda ściana jaskini sterowana jest przez
 Na opisanie zasługuje tu synchronizacja załadowanych lub usuniętych węzłów grafu. Mechanizm przesyłający wiadomości w sieci jest dosyć prosty i pozwala na dołączanie tylko najprostszych typów danych jak ciąg znaków, liczby i pozycja. Wysyłanie informacji o załadowaniu każdego węzła z osobna mogłoby zapełnić kanał komunikacyjny zwłaszcza przy starcie aplikacji kiedy ładowane są tysiące węzłów na raz. Został więc wprowadzony mechanizm którego celem jest zbieranie tych komunikatów i łączenie ich w większe paczki które po przesłaniu są z powrotem rozpakowywane i przetwarzane. Dzięki temu aplikacja zachowuje optymalne wykorzystanie łącza w jaskini.
 
 % diagram tikz? input -> wstępne przetw i zapis serwera -> network sync -> aktualizacja stanu klientów -> aktualizacja ekranów | okrąg?
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[stepstyle/.style={rectangle, 
+		rounded corners, draw=gray, very thick,
+		text centered, align=center}]
+	\def \n {6}
+	\def \offset {30}
+	\def \radius {3cm}
+
+	\foreach \step [count=\s] in {Akcja użytkownika, Biblioteka LZWP, Moduł wejścia, Aktualizacja aplikacji serwera, Synchronizacja stanu, Aktualizacja aplikacji klientów} {
+		\node(\s) [stepstyle] at ({360/\n * (\s) + \offset}:\radius) {\step};
+	};
+	\foreach \b/\e in {120/140, 160/200, 220/240, 300/320, 340/380} {
+		\draw[->, >=latex] ({\b}:\radius)
+		arc ({\b}:{\e}:\radius);
+	};
+		\draw[dashed, ->, >=latex] ({40}:\radius)
+		arc ({40}:{60}:\radius);
+\end{tikzpicture}
+\end{center}
+\caption{Diagram kolejności wykonywania modułów przy akcji użytkownika}
+\end{figure}
+
+
