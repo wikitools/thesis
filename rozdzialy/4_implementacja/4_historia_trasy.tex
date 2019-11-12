@@ -23,7 +23,7 @@ Zaznaczanie węzłów z historii oraz zmiana widoku odbywa się w identyczny spo
 Analogicznie do modułu historii zaprojektowane zostało odtwarzanie tras. Pliki zawierające trasy posiadają rozszerzenie .wgroute. Struktura pliku jest stosunkowo prosta - pierwsza cyfra służy rozróżnieniu akcji użytkownika: 0 oznacza zmianę widoku, a 1 wybranie węzła. W przypadku zmiany widoku po średniku można znaleźć cyfrę 0 lub 1. 0 odpowiada zmianie widoku na na widok dzieci, a 1 zmianie widoku na widok rodziców. Jeśli akcją było wybranie węzła, po średniku znajduje się ID artykułu do wybrania. 
 
 
-\img{\chapterPath/img/wgroute.png}{Fragment przykładowego pliku .wgroute zawierającego trasę}{wg_route}{0.5}
+\img{\chapterPath/img/wgroute.png}{Fragment przykładowego pliku .wgroute zawierającego trasę}{wg_route}{0.35}
 
 Po wybraniu trasy rozpoczyna się proces jej wczytywania. Są za to odpowiedzialne dwie klasy: RoutesReader oraz RoutesLoader. Pierwsza ma za zadanie pobrać dostępne trasy, ich nazwy i długość oraz wczytywać kolejne linijki plików. Druga przekształca wczytane dane linijka po linijce na odpowiednie akcje i dopisuje do stosu.
 
