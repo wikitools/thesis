@@ -1,7 +1,6 @@
 \section{Tworzenie struktury grafu}
 \sectionauthor{Jan Kruczyński}
 \label{sec:data-files}
-\section{Tworzenie struktury grafu}
 Celem tego etapu jest wytworzenie plików na których operuje aplikacja. Podczas projektowania ich struktury wzięliśmy pod uwagę, że muszą one:
 \begin{enumerate}
     \item Zawierać w sobie pełną informację na temat struktury skierowanego grafu połączeń pomiędzy kolejnymi węzłami.
@@ -72,3 +71,11 @@ Zawiera w sobie zapisane w formacie UTF-8 tytuły wszystkich artykułów i kateg
 \subsection{Metoda generowania plików}
 
 Program generujący pliki .wgX został napisany w języku C\#
+Program zawiera kilka pomocniczych struktur ułatwiających konstrukcję wynikowych plików:
+Dictionary<int, int> pageMap;
+Dictionary<int, int> categoryMap;
+Są to dictionary przechowujące odwzorowanie ID z wikipedii (który to reprezentuje dany węzeł w plikach .map) na kolejność węzła w pliku .map (tzw. ``nasze ID’’). Jako, że kategorie oraz artykuły mogą posiadać takie samo ID wikipedii potrzebne na to są dwie oddzielne struktury.
+
+W pierwszej kolejności program wywołuje metodę generującą odwzorowania odwrotne dla każdego z trzech plików wymagających tego, zgodnie z metodą opisaną w rozdziale 3.4.1.
+
+Następnie program zlicza ilość linii w pliku zawierającym tytuły artykułów i zapisuję tą liczbę do pliku .wgi. Jednocześnie zapełnia dictionary pageMap. Po tym etapie odczytuje tytuły kategorii i wypełnia categoryMap w analogiczny sposób.
