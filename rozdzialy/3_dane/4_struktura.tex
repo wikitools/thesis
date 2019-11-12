@@ -13,7 +13,7 @@ Celem tego etapu jest wytworzenie plików na których operuje aplikacja. Podczas
 
 Struktura owych plików powinna dać nam możliwość funkcjonowania aplikacji, bez trzymania wszystkich danych w pamięci tymczasowej. Odczytywanie danych z plików powinno być możliwie najszybsze.
 
-\subsection{\textbf{Generowanie brakujących danych}}
+\subsection{Generowanie brakujących danych}
 
 Dane linków zawierają wyłącznie połączenia typu ``z węzła - do innego węzła'', ale nie mają połączeń odwrotnych ``do węzła z innych węzłów''. Aby aplikacja była w stanie zaprezentować pełny skierowany graf połączeń potrzebne jest odwzorowanie odwrotne.
 Do finalnego poprawnego generowania plików potrzebne są dodatkowe pliki:
@@ -32,7 +32,7 @@ Dictionary<int, List<string>> reverseMap = new Dictionary<int, List<string>>();
 Jako, że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, dictionary zdefiniowany w listingu \ref{lst:reverse-map} została umieszczona w strukturze SortedDictionary a następnie zapisana w pliku o odpowiedniej nazwie. 
 Klucz w dictionary to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku \textit{.map} który przetwarzamy) jest typu int, aby umożliwić łatwe sortowanie za pomocą SortedDictionary. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \textit{.map}. Jako, że nie ma potrzeby rzutowania na typ numeryczny - odczytujemy i zapisujemy typ string, lista przechowuje w sobie wartości takiego typu.
 
-\subsection{\textbf{Opis poszczególnych plików}}
+\subsection{Opis poszczególnych plików}
 Aby osiągnąć wymagania które sobie postawiliśmy, opracowaliśmy strukturę rozbitą na 4 pliki. Wszystkie posiadają tą samą nazwę - jest to nazwa wersji Wikipedii którą opisują (np. simple-wiki lub pl-wiki), a różnią się rozszerzeniami - gdyż każdy plik posiada inną strukturę.
 
 \begin{itemize}
@@ -77,7 +77,7 @@ Zawiera wyłącznie jedną liczbę typu int - jest to ilość artykułów które
 Zawiera w sobie zapisane w formacie UTF-8 tytuły wszystkich artykułów i kategorii.
 \end{itemize}
 
-\subsection{\textbf{Metoda generowania plików}}
+\subsection{Metoda generowania plików}
 
 Program generujący pliki .wgX został napisany w języku C\#.
 Program zawiera kilka pomocniczych struktur ułatwiających konstrukcję wynikowych plików:

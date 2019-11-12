@@ -115,7 +115,7 @@
 
 % konfiruacja dla pod-podrozdziałów
 \titleformat{\subsection}                      
-{\normalfont\itshape}
+{\normalfont\bfseries\itshape}
 {\thesubsection.\quad}
 {0pt}
 {#1}
