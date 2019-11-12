@@ -4,18 +4,8 @@ Aplikacja, poza wykorzystaniem flysticków lub klawiatury, może być sterowana 
 
 Interfejs konsoli operatora posiada dwie zakładki - Search oraz Routes. Pierwsza jest odpowiedzialna za wyszukiwanie węzłów, na które ma zostać przeniesiony użytkownik, druga służy włączaniu tras. Obydwa elementy posiadają skrypt o nazwie Toggle, służący odpowiedniemu przełączaniu aktywnych elementów w konsoli. W obu zakładkach znajduje się obiekt przechowujący wyniki wyszukiwania, umieszczane w obiekcie zawierającym komponent Scroll Rect. Umożliwia on automatyczne utworzenie paska przewijania, co daje możliwość umieszczenia bardzo dużej ilości elementów.  Dodatkowo w zakładce Search znajdują się także obiekt o nazwie SearchInput odpowiedzialny za wpisywanie wyszukiwanego węzła, posiadający skrypt InputField. Ponadto, nad konsolą znajduje się także informacja o tym, jaki węzeł jest aktualnie wybrany.
 
-\begin{figure}[!h]
-    \begin{minipage}[c]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{\chapterPath/img/console_search.png}
-        \caption{\small Konsola z otwartą zakładką Search}
-        \label{fig:page-map}
-    \end{minipage}
-    \begin{minipage}[c]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{\chapterPath/img/console_routes.png}
-        \caption{\small Konsola z otwartą zakładką Routes i włączoną trasą}
-        \label{fig:pagelinks-map}
-    \end{minipage}
-\end{figure}
+\img{\chapterPath/img/console_search.png}{Zrzut ekranu konsoli z otwartą zakładką Search}{console_search}{0.8}
+\img{\chapterPath/img/console_routes.png}{Zrzut ekranu konsoli z otwartą zakładką Routes i włączoną trasą}{consoler_routes}{0.8}
 
 Wyszukiwanie węzłów odbywa się na przygotowanym uprzednio pliku, zawierającym posortowane alfabetycznie nazwy artykułów i kategorii oraz ich ID. Przeszukiwanie listy odbywa się za pomocą algorytmu wyszukiwania binarnego. Lista elementów aktualizuje się za każdym wydarzeniem OnValueChanged obiektu SearchInput. Instancjonowane są kolejne prefaby wyników wyszukiwania, w których zmieniana jest ich pozycja w pionie, nazwa i ikona symbolizująca artykuł lub kategorię. W momencie wybrania węzła wywoływane jest zdarzenie OnClick, do którego podpięta jest funkcja HistoryController odpowiedzialna za wybranie węzła. Tło wybranego obiektu zmieniane jest na niebiesko.
 
