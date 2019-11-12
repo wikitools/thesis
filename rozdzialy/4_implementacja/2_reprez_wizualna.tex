@@ -20,7 +20,7 @@ Graf jest przechowywany w pamięci aplikacji jako zbiór map:
 \end{enumerate}
 
 % GO Node - Billboard Shader
-\paragraph{Reprezentacja węzła} Z uwagi na dużą ilość jednocześnie załadowanych węzłów (kilka do kilkunastu tysięcy na raz) konieczne okazały się pewne optymalizacje poprawiające szybkość działania aplikacji. 
+\subsection{Reprezentacja węzła} Z uwagi na dużą ilość jednocześnie załadowanych węzłów (kilka do kilkunastu tysięcy na raz) konieczne okazały się pewne optymalizacje poprawiające szybkość działania aplikacji. 
 
 Obiekty węzłów nie są w większości przypadków tworzone dynamicznie. Zamiast tego przy starcie aplikacji tworzona jest pula nieużywanych obiektów. W momencie ładowania węzła nowy obiekt wizualny tworzony jest tylko w przypadku kiedy pula została wyczerpana. Przy usuwaniu węzła jego reprezentacja nie jest niszczona tylko zwracana do puli w celu przyszłego wykorzystania.
 
@@ -52,7 +52,7 @@ gdzie:
 \end{itemize}
 
 % GO Connection - B-Spline
-\paragraph{Reprezentacja połączenia} 
+\subsection{Reprezentacja połączenia} 
 Połączenia są w aplikacji reprezentowane jako krzywe \ref{fig:node-connections}. Ich kształt został najpierw zawinięty w górę tak aby przechodzić przez stworzone dla każdego połączenia węzły pomocnicze opisane w \ref{sec:tryby-widoki} a następnie zmierza łukiem w kierunku faktycznego węzła końcowego. Na początku do tworzenia tras połączeń używane były krzywe Béziera jednak obecnie z powodu ich skomplikowanego kształtu zastąpione zostały krzywymi B-Spline zaimplementowanymi według algorytmu De Boor'a \cite{Wiki:DeBoorsAlg}.
 
 \img{\chapterPath/img/connections.png}{Wygląd węzłów i połączeń w aplikacji}{node-connections}{.9}
