@@ -1,3 +1,65 @@
 \section{Tworzenie struktury grafu}
 \sectionauthor{Jan Kruczyński}
 \label{sec:data-files}
+
+Celem tego etapu jest wytworzenie plików na których operuje aplikacja. Podczas projektowania ich struktury wzięliśmy pod uwagę, że muszą one:
+Zawierać w sobie pełną informację na temat struktury skierowanego grafu połączeń pomiędzy kolejnymi węzłami.
+Rozróżniać czy dany węzeł reprezentuje artykuł czy kategorię.
+Przechowywać tytuły z wikipedii każdego węzła.
+Przechowywać ID strony na wikipedii.
+Umożliwiać szybkie odnajdywanie interesujących nas danych o konkretnym węźle bez przeszukiwania wszystkich plików za każdym razem, gdy potrzebujemy wydobyć jakąś informację.
+Przechowywać dane w skompresowanej formie, bez zbędnych bajtów i redundantnej informacji.
+
+Struktura owych plików powinna dać nam możliwość funkcjonowania aplikacji, bez trzymania wszystkich danych w pamięci tymczasowej. Odczytywanie danych z plików powinno być możliwie najszybsze.
+
+\subsection{Generowanie brakujących danych}
+
+Dane linków zawierają wyłącznie połączenia typu “z węzła - do innego węzła”, ale nie mają połączeń odwrotnych “do węzła z innych węzłów”. Aby aplikacja była w stanie zaprezentować pełny skierowany graf połączeń potrzebne jest odwzorowanie odwrotne.
+
+Do finalnego poprawnego generowania plików potrzebne są dodatkowe pliki:
+Artykuły które prowadzą do konkretnego artykułu (odwrotność pagelinks.map)
+Kategorie do których należy dany artykuł (odwrotność categorylinksfrompage.map)
+Kategorie do których należy dana kategoria (odwrotność categorylinksfromcategory.map)
+
+
+
+\subsection{Opis poszczególnych plików}
+Aby osiągnąć wymagania które sobie postawiliśmy, opracowaliśmy strukturę rozbitą na 4 pliki. Wszystkie posiadają tą samą nazwę - jest to nazwa wersji wikipedii którą opisują (np. simple-wiki lub pl-wiki), a różnią się rozszerzeniami - gdyż każdy plik posiada inną strukturę.
+
+3.4.2.1 Plik mapy .wgm
+Jest to plik instruujący aplikację na którym miejscu w innych plikach odnajdzie interesujące nas dane.
+Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o poniższej strukturze. Offset informuje nas, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
+
+4 BYTES
+4 BYTES
+4 BYTES
+Offset w pliku graph.wg
+Offset w pliku titles.wg
+ID Wikipedii danej strony
+
+W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na “nasze” ID - czyli kolejność danego węzła w pliku .map. W aplikacji oraz w pozostałych plikach, gdy odnosimy się do jakiegoś węzła nie używamy jego faktycznego ID wikipedii, tylko właśnie tą kolejność - licząc od zera. Znając ją, możemy pomnożyć ją przez rozmiar każdego wpisu (12) i otrzymujemy Offset w pliku .map.
+Podczas konstrukcji plików, informacje o danym węźle są jednocześnie umieszczane we wszystkich plikach. Dzięki temu nie ma potrzeby przechowywać danej informującej ile bajtów należy odczytać. Odczytu należy dokonać aż do pozycji Offset który znajduje się w następnym węźle z pliku .wgm - czyli 12 bajtów dalej.
+
+3.4.2.2 Plik struktury grafu .wgg
+
+Jest to plik zawierający dane połączeń skierowanego grafu. Rozróżniane są połączenia: (#1) od których węzłów możemy dojść do aktualnego węzła oraz (#2) do których węzłów prowadzi nasz węzeł.
+
+2 BYTES
+3 BYTES * N
+3 BYTES * X
+Ilość połączeń typu (#1) (N)
+a#1 b#2 c#3 … z#N
+A#1 B#2 C#3 … Z#X
+A, B, C oraz a, b, c to nie są ID artykułów wikipedii, lecz informacje, który z kolei artykuł z pliku .wgm mamy na myśli. Jako że ilość węzłów nigdy nie przekracza 224, 3 bajty wystarczają na przekazanie tej informacji.
+
+3.4.2.3 Plik informacyjny .wgi
+
+Zawiera wyłącznie jedną liczbę typu int - jest to ilość artykułów które znajdują się w plikach. Jest to jedyne rozróżnienie dla aplikacji który węzeł traktować jako artykuł, a który jako kategorię - w pozostałych plikach nie ma pomiędzy nimi rozróżnienia. Do plików najpierw zapisujemy wszystkie artykuły, a dopiero potem kategorie, dzięki czemu od pewnego momentu aplikacja oznacza węzły do których pobierana jest informacja jako kategorię. 
+
+3.4.2.4 Plik tytułów .wgt
+
+Zawiera w sobie zapisane w formacie UTF-8 tytuły wszystkich artykułów i kategorii.
+
+3.4.3 Metoda generowania plików
+
+Program generujący pliki .wgX został napisany w języku C#
