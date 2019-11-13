@@ -1,38 +1,38 @@
 \section{Tworzenie struktury grafu}
 \sectionauthor{Jan Kruczyński}
 \label{sec:data-files}
-Celem tego etapu jest wytworzenie plików na których operuje aplikacja. Podczas projektowania ich struktury wzięto pod uwagę, że muszą one:
+Celem tego etapu jest wytworzenie plików, na których operuje aplikacja. Podczas projektowania ich struktury wzięto pod uwagę, że muszą one:
 \begin{enumerate}
     \item Zawierać w sobie pełną informację na temat struktury skierowanego grafu połączeń pomiędzy kolejnymi węzłami.
-    \item Rozróżniać czy dany węzeł reprezentuje artykuł czy kategorię.
+    \item Rozróżniać, czy dany węzeł reprezentuje artykuł czy kategorię.
     \item Przechowywać tytuły z Wikipedii każdego węzła.
     \item Przechowywać ID strony na Wikipedii.
     \item Umożliwiać szybkie odnajdywanie interesujących nas danych o konkretnym węźle bez przeszukiwania wszystkich plików za każdym razem, gdy potrzebujemy wydobyć jakąś informację.
-    \item Przechowywać dane w skompresowanej formie, bez zbędnych bajtów i redundantnej informacji.
+    \item Przechowywać dane w skompresowanej formie - bez zbędnych bajtów i redundantnej informacji.
 \end{enumerate}
 
-Struktura owych plików powinna dać możliwość funkcjonowania aplikacji, bez trzymania wszystkich danych w pamięci tymczasowej. Odczytywanie danych z plików powinno być możliwie najszybsze.
+Struktura owych plików powinna dać możliwość funkcjonowania aplikacji bez trzymania wszystkich danych w pamięci tymczasowej. Odczytywanie danych z plików powinno być możliwie najszybsze.
 
 \subsection{Generowanie brakujących danych}
 \label{sec:generating-missing-files}
 
 Dane linków zawierają wyłącznie połączenia typu ``z węzła - do innego węzła'', ale nie mają połączeń odwrotnych ``do węzła z innych węzłów''. Aby aplikacja była w stanie zaprezentować pełny skierowany graf połączeń potrzebne jest odwzorowanie odwrotne.
-Do finalnego poprawnego generowania plików potrzebne są dodatkowe pliki:
+Do finalnego, poprawnego generowania plików potrzebne są dodatkowe pliki:
 \begin{itemize}
-    \item Artykuły które prowadzą do konkretnego artykułu (odwrotność \textit{pagelinks.map})
-    \item Kategorie do których należy dany artykuł (odwrotność categorylinksfrompage.map)
-    \item Kategorie do których należy dana kategoria (odwrotność categorylinksfromcategory.map)
+    \item Artykuły, które prowadzą do konkretnego artykułu (odwrotność \textit{pagelinks.map})
+    \item Kategorie, do których należy dany artykuł (odwrotność categorylinksfrompage.map)
+    \item Kategorie, do których należy dana kategoria (odwrotność categorylinksfromcategory.map)
 \end{itemize}
 
-Dane które są potrzebne nie znajdują się w plikach SQL, lecz dzięki opisanym w sekcji 3.3 plikami \textit{.map} istnieje możliwość generacji na ich podstawie brakujących informacji. Aby to zrobić, należy odczytać interesujący plik .map i linia po linii wypełnić Dictionary o następującej formie:
+Dane, które są potrzebne, nie znajdują się w plikach SQL, lecz dzięki opisanym w sekcji 3.3 plikami \textit{.map}, istnieje możliwość generacji na ich podstawie brakujących informacji. Aby to zrobić, należy odczytać interesujący plik .map i linia po linii wypełnić słownik o następującej formie:
 
 \begin{lstlisting}[caption={Słownik przechowujący odwzorowanie odwrotne}, label=lst:reverse-map]
 Dictionary<int, List<string>> reverseMap = new Dictionary<int, List<string>>();
 \end{lstlisting}
 
-Jako, że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, słownik zdefiniowany w Listingu \ref{lst:reverse-map} został umieszczony w strukturze SortedDictionary a następnie zapisany w pliku o odpowiedniej nazwie. 
+Jako że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, słownik zdefiniowany w Listingu \ref{lst:reverse-map} został umieszczony w strukturze SortedDictionary, a następnie zapisany w pliku o odpowiedniej nazwie. 
 
-Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku \textit{.map} który przetwarzamy), typu int, aby umożliwić łatwe sortowanie. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \textit{.map}. Jako, że nie ma potrzeby rzutowania na typ numeryczny - odczyt i zapis operuje na typu string, lista przechowuje w sobie wartości takiego typu. Przykład odwzorowania odwrotnego widać na Listingach \ref{lst:page_links} i \ref{lst:rev_page_links}.
+Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku \textit{.map}, który przetwarzamy), typu int, aby umożliwić łatwe sortowanie. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \textit{.map}. Jako że nie ma potrzeby rzutowania na typ numeryczny - odczyt i zapis operuje na typie string - lista przechowuje właśnie takie wartości. Przykład odwzorowania odwrotnego widać na Listingach \ref{lst:page_links} i \ref{lst:rev_page_links}.
 
 \begin{figure}[!h]
 \begin{center}
@@ -67,10 +67,10 @@ Po zakończeniu tego etapu zostały wygenerowane następujące pliki:
 \end{itemize}
 
 \subsection{Opis poszczególnych plików}
-Aby osiągnąć wymagania które zostały postawione, utworzono strukturę rozbitą na 4 pliki. Wszystkie posiadają tą samą nazwę - jest to nazwa wersji Wikipedii którą opisują (np. simple-wiki lub pl-wiki), a różnią się rozszerzeniami - gdyż każdy plik posiada inną strukturę.
+Aby osiągnąć postawione wymagania, utworzono strukturę rozbitą na 4 pliki. Wszystkie posiadają tą samą nazwę. Jest nią nazwa wersji Wikipedii, którą opisują (np. simple-wiki lub pl-wiki). Różnią się rozszerzeniami, gdyż każdy plik posiada inną strukturę.
 
 \paragraph{Plik mapy \codeinline{.wgm}}
-Jest to plik instruujący aplikację na którym miejscu w innych plikach odnajdzie interesujące dane. Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o strukturze opisanej w Tablicy \ref{tab:structure-mapfile}. Offset informuje, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
+Jest to plik instruujący aplikację, na którym miejscu w innych plikach odnajdzie interesujące dane. Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o strukturze opisanej w Tablicy \ref{tab:structure-mapfile}. Offset informuje, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
 
 \tabela{
  \hline
@@ -79,9 +79,9 @@ Jest to plik instruujący aplikację na którym miejscu w innych plikach odnajdz
  Offset w pliku \codeinline{.wgg} & Offset w pliku \codeinline{.wgt} & ID Wikipedii \\\hline
 }{|c | c | c|p{0.4\textwidth}| }{Reprezentacja pojedynczego węzła w pliku \codeinline{.wgm}}{structure-mapfile}
 
-W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na “nasze” ID - czyli kolejność danego węzła w pliku .map. W aplikacji oraz w pozostałych plikach, gdy znajduje się odniesienie do jakiegoś węzła, użyto nie jego faktycznego ID wikipedii, tylko właśnie tą kolejność - licząc od zera. Znając ją, można pomnożyć ją przez rozmiar każdego wpisu (12) i otrzymać Offset w pliku \codeinline{.wgm}.
+W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na nowe ID, którym jest numer w kolejności danego węzła w pliku .map. W aplikacji oraz w pozostałych plikach, gdy znajduje się odniesienie do jakiegoś węzła, użyto nie jego faktycznego ID wikipedii, tylko właśnie nowo utworzony identyfikator, rozpoczynający się od zera. Znając go można dokonać mnożenia przez rozmiar każdego wpisu (12) i otrzymać Offset w pliku \codeinline{.wgm}.
 
-Podczas konstrukcji plików, informacje o danym węźle są jednocześnie umieszczane we wszystkich plikach. Dzięki temu nie ma potrzeby przechowywać danej informującej ile bajtów należy odczytać. Odczytu należy dokonać aż do pozycji Offset który znajduje się w następnym węźle z pliku \codeinline{.wgm} - czyli 12 bajtów dalej.
+Podczas konstrukcji plików informacje o danym węźle są jednocześnie umieszczane we wszystkich plikach. Dzięki temu nie ma potrzeby przechowywać danej informującej ile bajtów należy odczytać. Odczytu należy dokonać aż do pozycji Offset, który znajduje się w następnym węźle z pliku \codeinline{.wgm}, czyli 12 bajtów dalej.
 
 \paragraph{Plik struktury grafu \codeinline{.wgg}}
 
@@ -98,7 +98,7 @@ A, B, C oraz a, b, c to nie są ID artykułów Wikipedii, lecz informacje, któr
 
 \paragraph{Plik informacyjny .wgi}
 
-Zawiera wyłącznie jedną liczbę typu int - jest to ilość artykułów które znajdują się w plikach. Jest to jedyne rozróżnienie dla aplikacji który węzeł traktować jako artykuł, a który jako kategorię - w pozostałych plikach nie ma pomiędzy nimi rozróżnienia. Do plików najpierw są zapisywane wszystkie artykuły, dzięki czemu przy pobieraniu danych o węźle, aplikacja oznacza owy węzeł jako kategorię, gdy jego numer w pliku \codeinline{.wgm} jest większy niż wartość w pliku \codeinline{.wgi}. 
+Zawiera wyłącznie jedną liczbę typu int - jest to ilość artykułów, które znajdują się w plikach. Jest to jedyne rozróżnienie dla aplikacji, który węzeł traktować jako artykuł, a który jako kategorię - w pozostałych plikach nie ma pomiędzy nimi rozróżnienia. Do plików najpierw są zapisywane wszystkie artykuły, dzięki czemu przy pobieraniu danych o węźle, aplikacja oznacza owy węzeł jako kategorię, gdy jego numer w pliku \codeinline{.wgm} jest większy niż wartość w pliku \codeinline{.wgi}. 
 
 \paragraph{Plik tytułów .wgt}
 
@@ -128,13 +128,12 @@ public class GraphObject
 \end{lstlisting}
 \end{minipage}
 
-Linijki \ref{line:pageMap} i \ref{line:categoryMap}, to mapy przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (który to reprezentuje dany węzeł w plikach \codeinline{.map}) na kolejność węzła w pliku \codeinline{.wgm} (tzw. ``nasze ID’’ (\ref{line:go-order})). Jako, że kategorie oraz artykuły mogą posiadać takie samo ID Wikipedii potrzebne na to są dwie oddzielne struktury. \ref{line:pageTitles} i \ref{line:catTitles} stanowią listy przechowujące tuple odzworowań ID i tytułu pliku do późniejszej generacji posortowanych tytułów (wartości z linii \ref{line:go-order} i \ref{line:go-title})
+Linijki \ref{line:pageMap} i \ref{line:categoryMap} to mapy przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (które reprezentuje dany węzeł w plikach \codeinline{.map}) na numer w kolejności węzła w pliku \codeinline{.wgm} (nowo utworzone ID (\ref{line:go-order})). Jako że kategorie oraz artykuły mogą posiadać takie samo ID Wikipedii, potrzebne na to są dwie oddzielne struktury. \ref{line:pageTitles} i \ref{line:catTitles} stanowią listy przechowujące tuple odzworowań ID i tytułu pliku do późniejszej generacji posortowanych tytułów (wartości z linii \ref{line:go-order} i \ref{line:go-title})
 
-Każdy węzeł podczas przetwarzania jest traktowany jako GraphObject i dodatkowo zawiera w sobie informacje o tym czy jest artykułem czy kategorią (\ref{line:go-article}), tytułem na Wikipedii (\ref{line:go-title}), oraz liczbą inormującą od którego bajtu w pliku tytułów \codeinline{.wgt} (\ref{line:go-offsetTitle}) oraz struktury grafu \codeinline{.wgg} (\ref{line:go-offsetGraph}) zostanie zapisana jego informacja.
+Każdy węzeł podczas przetwarzania jest traktowany jako GraphObject i dodatkowo zawiera w sobie informacje o tytule na Wikipedii (\ref{line:go-title}), liczbie informującej od którego bajtu, w pliku tytułów \codeinline{.wgt} (\ref{line:go-offsetTitle}) oraz struktury grafu \codeinline{.wgg} (\ref{line:go-offsetGraph}), zostanie zapisana jego informacja oraz o tym, czy jest artykułem czy kategorią (\ref{line:go-article}).
 
 \paragraph{Operacje przygotowujące}
-Zanim program rozpocznie generację właściwych plików \codeinline{.wgX}, potrzebuje dokonać generacji
-W pierwszej kolejności program wywołuje metodę generującą odwzorowania odwrotne dla każdego z trzech plików wymagających tego, zgodnie z metodą opisaną w rozdziale 3.4.1.
+Zanim program rozpocznie generację właściwych plików \codeinline{.wgX}, potrzebuje dokonać generacji. W pierwszej kolejności program wywołuje metodę generującą odwzorowania odwrotne dla każdego z wymagających tego trzech plików, zgodnie z metodą opisaną w rozdziale 3.4.1.
 
 Następnie program odczytuje tytuły wszystkich artykułów i linia po linii zapełnia mapę pageMap (\ref{line:pageMap}) oraz pageTitles (\ref{line:pageTitles}). Po tym etapie odczytuje tytuły kategorii i wypełnia categoryMap oraz categoryTitles w analogiczny sposób. Iteracja jest jednorazowa po wszystkich tytułach, więc złożoność obliczeniowa tego etapu to $O(n)$
 
@@ -147,11 +146,11 @@ Uznając ilość artykułów za $n$, a ilość kategorii za $m$, łączna złoż
 \begin{equation}
 O(2n) + O(n\log n) + O(2m) + O(m \log m)
 \label{eq:initial_operations}
-%\caption{Złożoność obliczeniowa etapu przygotowującego generację plików}
+%\caption{Złożoność obliczeniowa etapu przygotowującego generację plików}
 \end{equation}
 
 \paragraph{Generacja plików Wikigrphu}
-Kolejnym etapem jest już faktyczne zapisanie danych o węźle do wszystkich plików. Ilość artykułów jest już znana (jest to ilość elementów w mapie pageMap (linia \ref{line:pageMap} w Listingu \ref{lst:graph-object})), więc ta liczba jest zapisana do pliku \codeinline{.wgi}.
+Kolejnym etapem jest już faktyczne zapisanie danych o węźle do wszystkich plików. Ilość artykułów jest już znana (jest to ilość elementów w mapie pageMap (linia \ref{line:pageMap} w Listingu \ref{lst:graph-object})), więc ta liczba jest zapisana do pliku \codeinline{.wgi}.
 
 Aby zachować taką samą kolejność węzłów w plikach ponownie dokonany jest odczyt pliku tytułów dla artykułów, i dla każdego węzła parsowane są informacje o nim do struktury reprezentującej go w programie (Listing \ref{lst:graph-object}). Program jest napisany w postaci klasy zawierającej wszystkie metody zapisu i odczytu danych, co umożliwia łatwe przekazywanie zmiennych pomiędzy metodami, bez konieczności przekazywania wszystkiego w argumentach.
 

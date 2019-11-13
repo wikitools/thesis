@@ -1,13 +1,13 @@
 \section{Narzędzie WikiGraph Parser}
 \sectionauthor{Mikołaj Mirko}
 \label{sec:parser-tool}
-Proces pozyskiwania danych opisany w podrozdziałach \ref{sec:data-source} - \ref{sec:data-files} został zautomatyzowany i zaimplementowany w postaci dodatkowego, pomocniczego programu. Aplikacja WikiGraph Parser ma na celu usprawnienie pracy z pozyskiwanymi danymi oraz zmniejszyć ryzyko wystąpienia nieprawidłowości. Aplikacja została napisana w języku C\# (z platformą docelową .NET Framework 4.6.1) i posiada interfejs graficzny stworzony za pomocą frameworka UI WPF.
+Proces pozyskiwania danych opisany w podrozdziałach \ref{sec:data-source} - \ref{sec:data-files} został zautomatyzowany i zaimplementowany w postaci dodatkowego, pomocniczego programu. Aplikacja WikiGraph Parser ma na celu usprawnienie pracy z pozyskiwanymi danymi oraz zmniejszenie ryzyka wystąpienia nieprawidłowości. Aplikacja została napisana w języku C\# (z platformą docelową .NET Framework 4.6.1) i posiada interfejs graficzny stworzony za pomocą frameworka UI WPF.
 
 Interfejs programu został zaprojektowany z myślą o 10 heurystykach Nielsena \cite{Heuristics}. Zastosowano estetyczny i minimalistyczny wygląd wykorzystujący typowe standardy aplikacji okienkowych. W wielu miejscach użytkownik jest informowany o stanie programu za pomocą etykiet oraz symboli graficznych. Walidacja pozwala uniknąć przewidywalnych błędów, a w razie wystąpienia nieoczekiwanych problemów pojawiają się opisowe okna dialogowe. Pomoc zawarta jest w postaci tytułów sekcji i ich podpowiedzi.
 
 \img{\chapterPath/img/parser1.png}{Ekran konfiguracji parametrów WikiGraph Parser-a}{parser1}{0.8}
 
-Użytkownik obsługujący WikiGraph Parser ma możliwość wyboru interesującego go źródła informacji oraz określenie ścieżki aplikacji, wykorzystującej stworzone zasoby (Rysunek \ref{fig:parser1}). Ograniczając go do wyboru tylko tych dwóch parametrów tworzony jest prosty interfejs, zachowując jednocześnie swobodę i kontrolę użytkowania. Giles Colborne w swojej książce ``Prostota i użyteczność'' \cite{ProstotaUzytecznosc} opisuje zasadę zachowania złożoności, według której zabiegi usuwania i ukrywania funkcjonalności przed użytkownikiem sprowadzają interfejs do jego minimalnego poziomu złożoności.
+Użytkownik obsługujący WikiGraph Parser ma możliwość wyboru interesującego go źródła informacji oraz określenie ścieżki aplikacji, wykorzystującej stworzone zasoby (Rysunek \ref{fig:parser1}). Ograniczając go do wyboru tylko tych dwóch parametrów, tworzony jest prosty interfejs, który zachowuje jednocześnie swobodę i kontrolę użytkowania. Giles Colborne w swojej książce ``Prostota i użyteczność'' \cite{ProstotaUzytecznosc} opisuje zasadę zachowania złożoności, według której zabiegi usuwania i ukrywania funkcjonalności przed użytkownikiem sprowadzają interfejs do jego minimalnego poziomu złożoności.
 
 \begin{center}
 	\hyphenblockcquote{polish}{ProstotaUzytecznosc}{
