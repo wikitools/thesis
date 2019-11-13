@@ -36,6 +36,7 @@ Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności
 
 \begin{center}
 \begin{figure}[!h]
+\begin{center}
     \begin{minipage}[c]{0.45\linewidth}
         \begin{lstlisting}[frame=single,caption={Przykładowy fragment pliku pagelinks.map},label=lst:page_links]
 1   12,18,20
@@ -46,6 +47,7 @@ Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności
 41  12,13
 \end{lstlisting}
     \end{minipage}
+    \hspace{1em}
     \begin{minipage}[c]{0.45\linewidth}
         \begin{lstlisting}[frame=single,caption={Odwzorowanie odwrotne z Listingu \ref{lst:page_links} (fragment R\_pagelinks.map)},label=lst:rev_page_links]
 11  1,19
@@ -55,9 +57,10 @@ Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności
 18  1
 20  1,11,33
 \end{lstlisting}
-    \end{minipage}
+\end{minipage}
+\end{center}
 \end{figure}
-\end{center}Po zakończeniu tego etapu zostały wygenerowane następujące pliki:
+Po zakończeniu tego etapu zostały wygenerowane następujące pliki:
 \begin{itemize}
     \item \textit{R\_pagelinks.map}
     \item \textit{R\_categorylinksfrompage.map}
@@ -178,4 +181,4 @@ Posiadając wszystkie infromacje o danym węźle, używając BinaryWritera dane 
 
 Ponieważ kategorie znajdują się na końcu pliku .wgm, w momencie odczytywania ich kolejności w pliku \codeinline{.wgm} z mapy odwzorowań (Listing \ref{lst:graph-object} linia \ref{line:categoryMap}) do tej wartości dodawana jest ilość artykułów, czyli liczba zapisana w pliku \codeinline{.wgi}. Przykładowo pierwsza kategoria będzie po ostatnim artykule, wiec jeżeli jej ID oryginalnie wynosiło 0 (jako pierwsza w kolejności), jej nowe ID z mapy odwzorowań będzie wynosiło (N), gdzie N to ilość artykułów.
 
-Złożoność obliczeniowa tego etapu, ponieważ następuje tutaj wyłącznie pojedyncza iteracja po każdym artykule i kategorii wynosi $O(n+m)$, gdzie $n$ to ilość artykułów, a $m$ to ilość kategorii. Główna czasochłonnośc pochodzi z czasu otwierania i zamykania strumieni dostępu do plików oraz odczytywania danych.
+Złożoność obliczeniowa tego etapu, ponieważ następuje tutaj wyłącznie pojedyncza iteracja po każdym artykule i kategorii wynosi $O(n+m)$, gdzie $n$ to ilość artykułów, a $m$ to ilość kategorii. Główna czasochłonność pochodzi z czasu otwierania i zamykania strumieni dostępu do plików oraz odczytywania danych.
