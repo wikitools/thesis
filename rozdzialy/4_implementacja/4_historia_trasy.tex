@@ -5,7 +5,7 @@ Specyfika działania aplikacji, związana z wykonywaniem przez użytkownika akcj
 
 Do historii zapisywane są tylko akcje kluczowe dla nawigacji - zmiana widoku wyświetlania oraz wybieranie węzłów. Inne działania użytkownika nie powodują znaczących zmian w nawigacji po grafie i ich przechowywanie jest bezcelowe. Po naciśnięciu Przycisku 2 na kontrolerze, uprzednio przytrzymując przycisk spustu, wywoływana jest poprzednia akcja wykonana przez użytkownika. Odpowiednio, aby ponowić cofniętą akcję, należy nacisnąć Przycisk 3. W przypadku braku akcji do ponowienia lub cofnięcia nie jest podejmowane żadne działanie. Wywoływanie i zapisywanie tras dostępne jest z poziomu konsoli operatora opisanej w następnym punkcie.
 
-Akcje użytkownika są przechowywane jako odpowiednie klasy dziedziczące po interfejsie  \lstinline[basicstyle=\normalsize]{UserAction}. Posiada on wirtualne funkcje  \lstinline[basicstyle=\normalsize]{Execute()} oraz  \lstinline[basicstyle=\normalsize]{UnExecute()} służące odpowiednio ponawianiu i cofaniu akcji. Każda akcja posiada także swojego własnego delegata, zależnego od typu akcji. 
+Akcje użytkownika są przechowywane jako odpowiednie klasy dziedziczące po interfejsie  \codeinline{UserAction}. Posiada on wirtualne funkcje  \codeinline{Execute()} oraz  \codeinline{UnExecute()} służące odpowiednio ponawianiu i cofaniu akcji. Każda akcja posiada także swojego własnego delegata, zależnego od typu akcji. 
 
 \begin{lstlisting}[caption={Interfejs UserAction}, label=lst:IUserAction]
 public interface UserAction {
@@ -15,9 +15,9 @@ public interface UserAction {
 \end{lstlisting}
 
 
-Bezpośrednie operacje na historii wykonywane są przez  \lstinline[basicstyle=\normalsize]{HistoryService}. Przechowuje on akcje użytkownika we dwu stosach: pierwszy służy zapisywaniu akcji do cofnięcia, drugi akcji do ponowienia. W momencie wciśnięcia przycisku 2 wyzwalane jest zdarzenie wywołujące funkcję  \lstinline[basicstyle=\normalsize]{UndoAction()}, która poza wykonaniem kolejnego zdarzenia wywołującego funkcję akcji odpowiedzialnej za cofanie, zdejmuje tę akcję ze stosu akcji do cofania i wkłada na stos akcji do ponawiania.
+Bezpośrednie operacje na historii wykonywane są przez  \codeinline{HistoryService}. Przechowuje on akcje użytkownika we dwu stosach: pierwszy służy zapisywaniu akcji do cofnięcia, drugi akcji do ponowienia. W momencie wciśnięcia przycisku 2 wyzwalane jest zdarzenie wywołujące funkcję  \codeinline{UndoAction()}, która poza wykonaniem kolejnego zdarzenia wywołującego funkcję akcji odpowiedzialnej za cofanie, zdejmuje tę akcję ze stosu akcji do cofania i wkłada na stos akcji do ponawiania.
 
-Wszystkie delegowane funkcje służące historii oraz trasom są przypisywane w kontrolerze  \lstinline[basicstyle=\normalsize]{HistoryController}. Warunkiem jest, aby aplikacja była serwerem.
+Wszystkie delegowane funkcje służące historii oraz trasom są przypisywane w kontrolerze  \codeinline{HistoryController}. Warunkiem jest, aby aplikacja była serwerem.
 
 Zaznaczanie węzłów z historii oraz zmiana widoku odbywa się w identyczny sposób, jak zwykłe wywoływanie tych akcji przy użyciu kontrolera, jednak nie są one ponowne zapisywane do historii, jak przy zwykłym wywołaniu.
 
@@ -26,6 +26,6 @@ Analogicznie do modułu historii zaprojektowane zostało odtwarzanie tras. Pliki
 
 \img{\chapterPath/img/wgroute.png}{Fragment przykładowego pliku .wgroute zawierającego trasę}{wg_route}{0.35}
 
-Po wybraniu trasy rozpoczyna się proces jej wczytywania. Są za to odpowiedzialne dwie klasy:  \lstinline[basicstyle=\normalsize]{RoutesReader} oraz  \lstinline[basicstyle=\normalsize]{RoutesLoader}. Pierwsza ma za zadanie pobrać dostępne trasy, ich nazwy i długość oraz wczytywać kolejne linijki plików. Druga przekształca wczytane dane linijka po linijce na odpowiednie akcje i dopisuje do stosu.
+Po wybraniu trasy rozpoczyna się proces jej wczytywania. Są za to odpowiedzialne dwie klasy:  \codeinline{RoutesReader} oraz  \codeinline{RoutesLoader}. Pierwsza ma za zadanie pobrać dostępne trasy, ich nazwy i długość oraz wczytywać kolejne linijki plików. Druga przekształca wczytane dane linijka po linijce na odpowiednie akcje i dopisuje do stosu.
 
 W momencie włączenia trasy inicjowane jest wczytanie trasy z plików, a po tej operacji tworzony jest współprogram(ang. coroutine), która ma za zadanie wykonywanie kolejnych akcji trasy co daną liczbę sekund. Odtwarzanie trasy sygnalizowane jest przez ikonę \textit{AUTO} w nagłówku. W każdym momencie możliwe jest wyłączenie odtwarzania trasy za pomocą Przycisku 4, powodującego zatrzymanie współprogramu. W przypadku włączenia innej trasy w trakcie odtwarzania, współprogram poprzedniej trasy jest także wyłączany, a następnie wczytywana i inicjalizowana jest nowa trasa. 
