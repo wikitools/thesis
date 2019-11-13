@@ -26,7 +26,7 @@ Obiekty węzłów nie są w większości przypadków tworzone dynamicznie. Zamia
 
 W celu odciążenia karty graficznej zrezygnowaliśmy z wyświetlania każdego węzła jako trójwymiarowego modelu (jak na przykład kuli). Reprezentacją węzła jest prosta grafika rastrowa (Rysunek \ref{fig:node_sprites}). Jest ona dużo szybsza do przetworzenia ponieważ zawiera tylko cztery wierzchołki - jest to kwadratowa płaszczyzna z nałożoną teksturą. Dzięki temu aplikacja jest w stanie wyświetlić więcej węzłów na raz bez utraty płynności działania.
 
-\img{\chapterPath/img/node_sprites.png}{Grafiki węzłów (od lewej): artykuł aktywny i wskazany, kategoria aktywna i wskazana}{node_sprites}{0.8}
+\img{\chapterPath/img/node_sprites.png}{Grafiki węzłów (od lewej): artykuł aktywny i wskazany, kategoria aktywna i wskazana}{node_sprites}{0.6}
 
 Takie rozwiązanie powoduje jednak pewną komplikację. Płaszczyzna z grafiką, w przeciwieństwie do przestrzennego modelu, jest dobrze widoczna tylko kiedy kamera jest ustawiona bezpośrednio przed nią. Pojawia się więc potrzeba obracania obiektu węzła tak aby był on zawsze zwrócony przodem do użytkownika zwiedzającego graf. Najprostszym rozwiązaniem byłoby dodanie krótkiego skryptu do każdego obiektu który przy każdym odświeżeniu ekranu obracałby reprezentację węzła w stronę kamery. Nie jest to jednak dobre rozwiązanie z powodu narzutu czasowego. W każdej klatce ta sama operacja byłaby wykonywana potencjalnie kilkanaście tysięcy razy co mogłoby mieć widoczny efekt na szybkości działania.
 
