@@ -1,7 +1,7 @@
 \section{Parsowanie informacji}
 \sectionauthor{Mikołaj Mirko}
 \label{sec:data-parsing}
-Po pobraniu i rozpakowaniu rozpoczyna się proces parsowania danych. Każdy z plików \textit{.sql} składa się z definicji struktury tabeli bazy danych oraz listy wpisów w postaci ukazanej na Listing \ref{lst:page_sql}. Parsowanie informacji polega na przejściu po każdej linijce danego pliku, wydostaniu kolejnych wartości następujących po wyrażeniu \textit{VALUES} i zapisaniu tylko tych, które są istotne dla dalszego przetwarzania.
+Po pobraniu i rozpakowaniu rozpoczyna się proces parsowania danych. Każdy z plików \codeinline{.sql} składa się z definicji struktury tabeli bazy danych oraz listy wpisów w postaci ukazanej na Listing \ref{lst:page_sql}. Parsowanie informacji polega na przejściu po każdej linijce danego pliku, wydostaniu kolejnych wartości następujących po wyrażeniu \codeinline{VALUES} i zapisaniu tylko tych, które są istotne dla dalszego przetwarzania.
 
 \begin{lstlisting}[language=SQL,frame=single,caption={Fragment pliku enwiki-20191101-page.sql zawierający dane o stronach},label=lst:page_sql]
 INSERT INTO `page` VALUES
@@ -15,7 +15,7 @@ Plik \textit{page.sql} zawiera nieposortowane informacje o różnych stronach Wi
 
 Pliki \textit{pagelinks.sql} i \textit{categorylinks.sql} są parsowane w podobny sposób. Z każdego wpisu pobierany jest identyfikator artykułu lub kategorii z którego połączenie wychodzi oraz tytuł artykułu lub kategorii do którego połączenie te kieruje. Zanim jednak informacje o połączeniach zostaną zapisane do osobnych plików, potrzebne jest przekształcenie tytułu (drugiego pobieranego parametru) do odpowiadającego identyfikatora strony, tak aby z postaci \textit{ID strony - Tytuł strony} otrzymać postać \textit{ID strony - ID strony}. To pozwoli na zmniejszenie wielkości pliku wynikowego i łatwiejszą do dalszego przetwarzania strukturę. Dodatkowo, dzięki informacji o pochodzeniu odnośnika w pliku \textit{categorylinks.sql} następuje podział zawieranych połączeń na te określające związek między dwoma kategoriami (tworzące strukturę hierarchiczną stron kategorii) oraz związek między artykułem a kategorią (przypisanie artykułu do kategorii).
 
-Po wykonaniu wymienionych przekształceń otrzymywane jest 5 nowych plików (oznaczonych rozszerzeniem \textit{.map}), zawierających dane potrzebne do stworzenia struktury właściwego grafu. Wszystkie te pliki są dodatkowo sortowane alfanumerycznie w celu przyspieszenia kolejnego etapu ich przetwarzania. Wytworzone zostały:
+Po wykonaniu wymienionych przekształceń otrzymywane jest 5 nowych plików (oznaczonych rozszerzeniem \codeinline{.map}), zawierających dane potrzebne do stworzenia struktury właściwego grafu. Wszystkie te pliki są dodatkowo sortowane alfanumerycznie w celu przyspieszenia kolejnego etapu ich przetwarzania. Wytworzone zostały:
 
 \begin{enumerate}[label=\textbullet]
     \setlength\itemsep{1.1em}

@@ -22,19 +22,19 @@ Przetwarzanie danych jest rozpoczynane po naciśnięciu przycisku \textit{Start}
 \begin{enumerate}[label=\textbullet]
     \item \textit{Downloading dumps}
 
-    Na podstawie wybranego zrzutu bazy pobierany jest odpowiedni zestaw plików (szczegółowo opisany w podrozdziale \ref{sec:data-download}). Do tego zadania wykorzystana jest klasa WebClient.
+    Na podstawie wybranego zrzutu bazy pobierany jest odpowiedni zestaw plików (szczegółowo opisany w podrozdziale \ref{sec:data-download}). Do tego zadania wykorzystana jest klasa \codeinline{WebClient}.
 
     \item \textit{Decompressing dumps}
 
-    Dekompresja pobranych plików odbywa się za pomocą klasy GzipStream. Po tym kroku pliki \textit{.sql} gotowe są do przetwarzania.
+    Dekompresja pobranych plików odbywa się za pomocą klasy \codeinline{GzipStream}. Po tym kroku pliki \codeinline{.sql} gotowe są do przetwarzania.
 
     \item \textit{Reading data from dumps}
 
-    Podczas tego kroku tworzone są pliki z rozszerzeniem \textit{.map}, zawierające tylko te dane, które są wykorzystywane do dalszego przetwarzania. Na tym etapie odbywa się również sortowanie danych – użyty jest pakiet ``Sortiously''\footnote{Pakiet użytkownika fredgdaley2 dostępny jest w serwisie GitHub: https://github.com/fredgdaley2/Sortiously}.
+    Podczas tego kroku tworzone są pliki z rozszerzeniem \codeinline{.map}, zawierające tylko te dane, które są wykorzystywane do dalszego przetwarzania. Na tym etapie odbywa się również sortowanie danych – użyty jest pakiet \codeinline{Sortiously}\footnote{Pakiet użytkownika fredgdaley2 dostępny jest w serwisie GitHub: https://github.com/fredgdaley2/Sortiously}.
 
     \item \textit{Generating WikiGraph files}
 
-    Ten krok przetwarza przerobione i uporządkowane dane do plików grafu o strukturze binarnej, czytanych przez aplikację główną (podrozdział \ref{sec:data-files}). Wykorzystane są m.in. klasy takie jak BinaryWriter oraz BinaryConverter.
+    Ten krok przetwarza przerobione i uporządkowane dane do plików grafu o strukturze binarnej, czytanych przez aplikację główną (podrozdział \ref{sec:data-files}). Wykorzystane są m.in. klasy takie jak \codeinline{BinaryWriter} oraz \codeinline{BinaryConverter}.
 
     \item \textit{Saving files and cleaning up}	
 
