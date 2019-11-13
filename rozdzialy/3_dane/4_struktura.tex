@@ -109,7 +109,6 @@ Zawiera w sobie zapisane w formacie UTF-8 tytuły wszystkich artykułów i kateg
 Program generujący pliki \codeinline{.wgX} został napisany w języku C\#.
 Program zawiera kilka pomocniczych struktur ułatwiających konstrukcję wynikowych plików:
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Pomocnicze struktury dla programu generującego pliki dla aplikacji}, label=lst:graph-object]
 Dictionary<int, int> pageMap;%*\label{line:pageMap}*)
 Dictionary<int, int> categoryMap;%*\label{line:categoryMap}*)
@@ -126,7 +125,6 @@ public class GraphObject
     public int order;%*\label{line:go-order}*)
 }
 \end{lstlisting}
-\end{minipage}
 
 Linijki \ref{line:pageMap} i \ref{line:categoryMap} to mapy przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (które reprezentuje dany węzeł w plikach \codeinline{.map}) na numer w kolejności węzła w pliku \codeinline{.wgm} (nowo utworzone ID (\ref{line:go-order})). Jako że kategorie oraz artykuły mogą posiadać takie samo ID Wikipedii, potrzebne na to są dwie oddzielne struktury. \ref{line:pageTitles} i \ref{line:catTitles} stanowią listy przechowujące tuple odzworowań ID i tytułu pliku do późniejszej generacji posortowanych tytułów (wartości z linii \ref{line:go-order} i \ref{line:go-title})
 
@@ -159,14 +157,12 @@ Plik z tytułami zawiera wszystkie interesujące nas elementy. Nie istnieje elem
 \begin{itemize}
 \item Podczas przetwarzania artykułu odczytujemy pliki
 \begin{enumerate}[label=\textbullet]
-    \setlength\itemsep{1.1em}
     \item  \textit{pagelinks.map}
     \item  \textit{R\_pagelinks.map}
     \item  \textit{categorylinksfrompage.map}
 \end{enumerate}
 \item Podczas przetwarzania kategorii odczytujemy pliki
 \begin{enumerate}[label=\textbullet]
-    \setlength\itemsep{1.1em}
     \item  \textit{R\_categorylinksfromcategory.map}
     \item  \textit{categorylinksfromcategory.map}
     \item  \textit{R\_categorylinksfrompage.map}
