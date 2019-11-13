@@ -16,8 +16,7 @@ Struktura owych plików powinna dać nam możliwość funkcjonowania aplikacji, 
 \subsection{Generowanie brakujących danych}
 \label{sec:generating-missing-files}
 
-Dane linków zawierają wyłącznie połączenia typu ``z węzła - do innego węzła'', ale nie mają połączeń odwrotnych ``do węzła z innych węzłów''. Aby aplikacja była w stanie zaprezentować pełny skierowany graf połączeń potrzebne jest odwzorowanie odwrotne.
-Do finalnego poprawnego generowania plików potrzebne są dodatkowe pliki:
+Dane linków zawierają wyłącznie połączenia typu ``z węzła - do innego węzła'', ale nie mają połączeń odwrotnych ``do węzła z innych węzłów''. Aby aplikacja była w stanie zaprezentować pełny skierowany graf połączeń potrzebne jest odwzorowanie odwrotne. Do finalnego poprawnego generowania plików potrzebne są dodatkowe pliki:
 \begin{itemize}
     \item Artykuły które prowadzą do konkretnego artykułu (odwrotność \textit{pagelinks.map})
     \item Kategorie do których należy dany artykuł (odwrotność categorylinksfrompage.map)
@@ -30,7 +29,8 @@ Aby to zrobić, odczytujemy interesujący nas plik .map i czytając linia po lin
 \begin{lstlisting}[caption={Dictionary przechowujące odwzorowanie odwrotne}, label=lst:reverse-map]
 Dictionary<int, List<string>> reverseMap = new Dictionary<int, List<string>>();
 \end{lstlisting}
-Jako, że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, dictionary zdefiniowany w listingu \ref{lst:reverse-map} została umieszczona w strukturze SortedDictionary a następnie zapisana w pliku o odpowiedniej nazwie. 
+
+Jako, że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, dictionary zdefiniowany w Listingu \ref{lst:reverse-map} została umieszczona w strukturze SortedDictionary a następnie zapisana w pliku o odpowiedniej nazwie. 
 Klucz w dictionary to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku \textit{.map} który przetwarzamy) jest typu int, aby umożliwić łatwe sortowanie za pomocą SortedDictionary. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \textit{.map}. Jako, że nie ma potrzeby rzutowania na typ numeryczny - odczytujemy i zapisujemy typ string, lista przechowuje w sobie wartości takiego typu.
 
 \subsection{Opis poszczególnych plików}
@@ -39,8 +39,9 @@ Aby osiągnąć wymagania które sobie postawiliśmy, opracowaliśmy strukturę 
 \begin{itemize}
     \item
 \textbf{Plik mapy \textit{.wgm}}\newline
+
 Jest to plik instruujący aplikację na którym miejscu w innych plikach odnajdzie interesujące nas dane.
-Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o strukturze opisanej w Tabeli \ref{tab:structure-mapfile}. Offset informuje nas, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
+Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o strukturze opisanej w Tablicy \ref{tab:structure-mapfile}. Offset informuje nas, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
 
 \tabela{
  \hline
@@ -49,14 +50,12 @@ Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o
  Offset w pliku \textit{.wgg} & Offset w pliku \textit{.wgt} & ID Wikipedii \\\hline
 }{|c | c | c|p{0.4\textwidth}| }{Reprezentacja pojedynczego węzła w pliku \textit{.wgm}}{structure-mapfile}
 
-W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na “nasze” ID - czyli kolejność danego węzła w pliku .map. W aplikacji oraz w pozostałych plikach, gdy odnosimy się do jakiegoś węzła nie używamy jego faktycznego ID wikipedii, tylko właśnie tą kolejność - licząc od zera. Znając ją, możemy pomnożyć ją przez rozmiar każdego wpisu (12) i otrzymujemy Offset w pliku \textit{.wgm}.
-Podczas konstrukcji plików, informacje o danym węźle są jednocześnie umieszczane we wszystkich plikach. Dzięki temu nie ma potrzeby przechowywać danej informującej ile bajtów należy odczytać. Odczytu należy dokonać aż do pozycji Offset który znajduje się w następnym węźle z pliku \textit{.wgm} - czyli 12 bajtów dalej.
+W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na “nasze” ID - czyli kolejność danego węzła w pliku .map. W aplikacji oraz w pozostałych plikach, gdy odnosimy się do jakiegoś węzła nie używamy jego faktycznego ID wikipedii, tylko właśnie tą kolejność - licząc od zera. Znając ją, możemy pomnożyć ją przez rozmiar każdego wpisu (12) i otrzymujemy Offset w pliku \textit{.wgm}. Podczas konstrukcji plików, informacje o danym węźle są jednocześnie umieszczane we wszystkich plikach. Dzięki temu nie ma potrzeby przechowywać danej informującej ile bajtów należy odczytać. Odczytu należy dokonać aż do pozycji Offset który znajduje się w następnym węźle z pliku \textit{.wgm} - czyli 12 bajtów dalej.
 
 \item
 \textbf{Plik struktury grafu \textit{.wgg}}
 
 Jest to plik zawierający dane połączeń skierowanego grafu. Rozróżniane są połączenia: (\#1) od których węzłów możemy dojść do aktualnego węzła oraz (\#2) do których węzłów prowadzi nasz węzeł.
-
 
 \tabela{
  \hline
@@ -99,10 +98,11 @@ public class GraphObject
 }
 \end{lstlisting}
 \end{minipage}
+
 Są to dictionary przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (który to reprezentuje dany węzeł w plikach \textit{.map}) na kolejność węzła w pliku \textit{.wgm} (tzw. ``nasze ID’’ (\ref{line:go-order})). Jako, że kategorie oraz artykuły mogą posiadać takie samo ID Wikipedii potrzebne na to są dwie oddzielne struktury (linie \ref{line:pageMap} oraz \ref{line:categoryMap} ).
 
 W pierwszej kolejności program wywołuje metodę generującą odwzorowania odwrotne dla każdego z trzech plików wymagających tego, zgodnie z metodą opisaną w rozdziale 3.4.1.
 
 Następnie program zlicza ilość linii w pliku zawierającym tytuły artykułów i zapisuję tą liczbę do pliku \textit{.wgi}. Jednocześnie zapełnia dictionary pageMap. Po tym etapie odczytuje tytuły kategorii i wypełnia categoryMap w analogiczny sposób.\newline
-Kolejnym etapem jest już faktyczne zapisanie danych o węźle do wszystkich plików. Aby zachować taką samą kolejność węzłów w plikach ponownie odczytujemy plik tytułów dla artykułów, parsujemy informacje o nim do struktury reprezentującej go w programie (listing \ref{lst:graph-object}) i zapisujemy odpowiednie dane do każdego z plików.
+Kolejnym etapem jest już faktyczne zapisanie danych o węźle do wszystkich plików. Aby zachować taką samą kolejność węzłów w plikach ponownie odczytujemy plik tytułów dla artykułów, parsujemy informacje o nim do struktury reprezentującej go w programie (Listing \ref{lst:graph-object}) i zapisujemy odpowiednie dane do każdego z plików.
 \newline
