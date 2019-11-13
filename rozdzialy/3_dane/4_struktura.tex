@@ -32,8 +32,8 @@ Dictionary<int, List<string>> reverseMap = new Dictionary<int, List<string>>();
 \end{lstlisting}
 Jako, że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, słownik zdefiniowany w listingu \ref{lst:reverse-map} został umieszczony w strukturze SortedDictionary a następnie zapisany w pliku o odpowiedniej nazwie. 
 Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku \textit{.map} który przetwarzamy), typu int, aby umożliwić łatwe sortowanie. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \textit{.map}. Jako, że nie ma potrzeby rzutowania na typ numeryczny - odczyt i zapis operuje na typu string, lista przechowuje w sobie wartości takiego typu. Przykład odwzorowania odwrotnego widać na listingach \ref{lst:page_links} i \ref{lst:rev_page_links}.
-\begin{center}
 \begin{figure}[!h]
+\begin{center}
     \begin{minipage}[c]{0.45\linewidth}
         \begin{lstlisting}[frame=single,caption={Przykładowy fragment pliku pagelinks.map},label=lst:page_links]
 1   12,18,20
@@ -44,6 +44,7 @@ Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności
 41  12,13
 \end{lstlisting}
     \end{minipage}
+    \hspace{1em}
     \begin{minipage}[c]{0.45\linewidth}
         \begin{lstlisting}[frame=single,caption={Odwzorowanie odwrotne z listingu \ref{lst:page_links} (fragment R\_pagelinks.map)},label=lst:rev_page_links]
 11  1,19
@@ -53,9 +54,10 @@ Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności
 18  1
 20  1,11,33
 \end{lstlisting}
-    \end{minipage}
+\end{minipage}
+\end{center}
 \end{figure}
-\end{center}Po zakończeniu tego etapu zostały wygenerowane następujące pliki:
+Po zakończeniu tego etapu zostały wygenerowane następujące pliki:
 \begin{itemize}
     \item \textit{R\_pagelinks.map}
     \item \textit{R\_categorylinksfrompage.map}
