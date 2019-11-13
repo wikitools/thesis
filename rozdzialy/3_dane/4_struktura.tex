@@ -70,7 +70,7 @@ Po zakończeniu tego etapu zostały wygenerowane następujące pliki:
 Aby osiągnąć postawione wymagania, utworzono strukturę rozbitą na 4 pliki. Wszystkie posiadają tą samą nazwę. Jest nią nazwa wersji Wikipedii, którą opisują (np. simple-wiki lub pl-wiki). Różnią się rozszerzeniami, gdyż każdy plik posiada inną strukturę.
 
 \paragraph{Plik mapy \codeinline{.wgm}}
-Jest to plik instruujący aplikację, na którym miejscu w innych plikach odnajdzie interesujące dane. Każdy węzeł zawiera swój wpis w pliku .map zajmując dokładnie 12 bajtów o strukturze opisanej w Tablicy \ref{tab:structure-mapfile}. Offset informuje, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
+Jest to plik instruujący aplikację, na którym miejscu w innych plikach odnajdzie interesujące dane. Każdy węzeł zawiera swój wpis w pliku \codeinline{.map} zajmując dokładnie 12 bajtów o strukturze opisanej w Tablicy \ref{tab:structure-mapfile}. Offset informuje, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
 
 \tabela{
  \hline
@@ -79,7 +79,7 @@ Jest to plik instruujący aplikację, na którym miejscu w innych plikach odnajd
  Offset w pliku \codeinline{.wgg} & Offset w pliku \codeinline{.wgt} & ID Wikipedii \\\hline
 }{|c | c | c|p{0.4\textwidth}| }{Reprezentacja pojedynczego węzła w pliku \codeinline{.wgm}}{structure-mapfile}
 
-W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na nowe ID, którym jest numer w kolejności danego węzła w pliku .map. W aplikacji oraz w pozostałych plikach, gdy znajduje się odniesienie do jakiegoś węzła, użyto nie jego faktycznego ID wikipedii, tylko właśnie nowo utworzony identyfikator, rozpoczynający się od zera. Znając go można dokonać mnożenia przez rozmiar każdego wpisu (12) i otrzymać Offset w pliku \codeinline{.wgm}.
+W tym miejscu następuje swoiste przekonwertowanie ID Wikipedii danej strony na nowe ID, którym jest numer w kolejności danego węzła w pliku \codeinline{.map}. W aplikacji oraz w pozostałych plikach, gdy znajduje się odniesienie do jakiegoś węzła, użyto nie jego faktycznego ID wikipedii, tylko właśnie nowo utworzony identyfikator, rozpoczynający się od zera. Znając go można dokonać mnożenia przez rozmiar każdego wpisu (12) i otrzymać Offset w pliku \codeinline{.wgm}.
 
 Podczas konstrukcji plików informacje o danym węźle są jednocześnie umieszczane we wszystkich plikach. Dzięki temu nie ma potrzeby przechowywać danej informującej ile bajtów należy odczytać. Odczytu należy dokonać aż do pozycji Offset, który znajduje się w następnym węźle z pliku \codeinline{.wgm}, czyli 12 bajtów dalej.
 
@@ -96,11 +96,11 @@ Jest to plik zawierający dane połączeń skierowanego grafu. Rozróżniane są
 
 A, B, C oraz a, b, c to nie są ID artykułów Wikipedii, lecz informacje, który z kolei artykuł z pliku .wgm mamy na myśli. Jako że ilość węzłów nigdy nie przekracza $2^{24}$, 3 bajty wystarczają na przekazanie tej informacji.
 
-\paragraph{Plik informacyjny .wgi}
+\paragraph{Plik informacyjny \codeinline{.wgi}}
 
 Zawiera wyłącznie jedną liczbę typu int - jest to ilość artykułów, które znajdują się w plikach. Jest to jedyne rozróżnienie dla aplikacji, który węzeł traktować jako artykuł, a który jako kategorię - w pozostałych plikach nie ma pomiędzy nimi rozróżnienia. Do plików najpierw są zapisywane wszystkie artykuły, dzięki czemu przy pobieraniu danych o węźle, aplikacja oznacza owy węzeł jako kategorię, gdy jego numer w pliku \codeinline{.wgm} jest większy niż wartość w pliku \codeinline{.wgi}. 
 
-\paragraph{Plik tytułów .wgt}
+\paragraph{Plik tytułów \codeinline{.wgt}}
 
 Zawiera w sobie zapisane w formacie UTF-8 tytuły wszystkich artykułów i kategorii.
 
@@ -169,9 +169,9 @@ Plik z tytułami zawiera wszystkie interesujące nas elementy. Nie istnieje elem
 \end{enumerate}
 \end{itemize}
 
-Przy odczytaniu wartości ID w pliku tytułów, odczytywane są także pojedyncze linie w powyższych plikach \codeinline{.map}. Jeżeli ID w pliku z połączeniami odpowiada ID w pliku tytułów, te połączenia są uwzględniane do aktualnego węzła, a licznik odczytu linii dla danego pliku jest zwiększany. Jeżeli odczytane ID różnią się od siebie oznacza to, że dany artykuł bądź kategoria nie zawiera w tym pliku .map żadnych połączeń.
+Przy odczytaniu wartości ID w pliku tytułów, odczytywane są także pojedyncze linie w powyższych plikach \codeinline{.map}. Jeżeli ID w pliku z połączeniami odpowiada ID w pliku tytułów, te połączenia są uwzględniane do aktualnego węzła, a licznik odczytu linii dla danego pliku jest zwiększany. Jeżeli odczytane ID różnią się od siebie oznacza to, że dany artykuł bądź kategoria nie zawiera w tym pliku \codeinline{.map} żadnych połączeń.
 
-Posiadając wszystkie informacje o danym węźle, używając BinaryWritera dane zostają dopisane do plików \codeinline{.wgg} i \codeinline{.wgt} zgodnie z ich strukturą opisaną w rozdziale 3.4.2. Ilość dopisanych bajtów do każdego z tych plików jest dodawana do odpowiednich liczników, a ich wartości zostają wraz z ID z Wikipedii dopisane do pliku \codeinline{.wgm}. Całość jest powtarzana dla każdego z artykułów a następnie dla każdej z kategorii, zgodnie z plikiem z tytułami.
+Posiadając wszystkie informacje o danym węźle, używając klasy \codeinline{BinaryWriter} dane zostają dopisane do plików \codeinline{.wgg} i \codeinline{.wgt} zgodnie z ich strukturą opisaną w rozdziale 3.4.2. Ilość dopisanych bajtów do każdego z tych plików jest dodawana do odpowiednich liczników, a ich wartości zostają wraz z ID z Wikipedii dopisane do pliku \codeinline{.wgm}. Całość jest powtarzana dla każdego z artykułów a następnie dla każdej z kategorii, zgodnie z plikiem z tytułami.
 
 Ponieważ kategorie znajdują się na końcu pliku .wgm, w momencie odczytywania ich kolejności w pliku \codeinline{.wgm} z mapy odwzorowań (Listing \ref{lst:graph-object} linia \ref{line:categoryMap}) do tej wartości dodawana jest ilość artykułów, czyli liczba zapisana w pliku \codeinline{.wgi}. Przykładowo pierwsza kategoria będzie po ostatnim artykule, więc jeżeli jej ID oryginalnie wynosiło 0 (jako pierwsza w kolejności), jej nowe ID z mapy odwzorowań będzie wynosiło (N), gdzie N to ilość artykułów.
 
