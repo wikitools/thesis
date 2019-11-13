@@ -1,3 +1,22 @@
 \section{Elementy zwiększające użyteczność aplikacji}
 \sectionauthor{Mikołaj Mirko}
 \label{sec:elementy}
+Jednym z ważniejszych elementów znajdujących się w aplikacji jest podążający za wzrokiem nagłówek z informacjami o stanie grafu. Umiejscowiony jest on powyżej linii wzroku tak, aby nie przeszkadzał w interakcji z węzłami, a zarazem był wyraźnie widoczny z każdego miejsca oraz kąta patrzenia. Jego pozycja pionowa jest zaczepiona w stałym punkcie, a pozycja pozioma uzależniona od kierunku wyznaczanego przez główne okulary jaskini.
+
+Na samej górze znajduje się informacja o tym, czy węzeł jest tylko wskazywany kontrolerem, czy jesteśmy w widoku grafu z aktualnie wybranym węzłem. Zaraz pod spodem widoczny jest tytuł artykułu lub kategorii. W trybie swobodnego latania nagłówek wyświetlany jest tylko w przypadku wskazywania węzłów. Rysunek \ref{fig:header1} nakreśla układ nagłówka po wskazaniu artykułu ``Margarine''. Jeśli węzeł posiada jakieś połączenia, ich liczba wyświetlana jest pod tytułem.
+
+\img{\chapterPath/img/header1.png}{Nagłówek po wskazaniu węzła}{header1}{.9}
+
+Dla widoku węzła dostępna jest większa ilość informacji. Pod tytułem pojawia się podłużny wskaźnik przypominający poziomy pasek przewijania. Wraz z informacją tekstową znajdującą się tuż pod nim określa aktualnie wyświetlany wycinek listy połączeń. Łatwo zauważyć, które połączenia są wyświetlane w około oraz jaką część całości stanowią. Na Rysunku \ref{fig:header2} wybrany został artykuł zatytułowany ``Missouri river'' z 26 połączeniami wychodzącymi (aktualnie wyświetlane są połączenia od pierwszego do ósmego włącznie).
+
+\img{\chapterPath/img/header2.png}{Nagłówek w widoku węzła z informacją o połączeniach}{header2}{.9}
+
+Ostatnią częścią nagłówka jest ikona stanu. Zawiera ona 3 istotne informacje: rodzaj węzła (artykuł lub kategoria), aktualny typ połączeń (wychodzące z węzła lub do niego trafiające) oraz wariant poruszania się. Rodzaj węzła jest ilustrowany poprzez kolor oraz kształt (Rysunek \ref{fig:node_sprites}). O typie połączeń świadczy również kolor, a także skierowanie strzałek w stosunku do symbolu węzła. (Na Rysunku \ref{fig:header2} ikona oznacza artykuł z połączeniami wychodzącymi). Domyślnym wariantem poruszania się jest ręczne przeskakiwanie z węzła na węzeł. Przy uruchomionej zaprogramowanej trasie (czyli automatycznym przechodzeniu po zdefiniowanej ścieżce - więcej o tym w rozdziale \ref{sec:history}) na symbolu węzła pojawia się fraza ``AUTO'' (Rysunek \ref{fig:header3}).
+
+\img{\chapterPath/img/header3.png}{Nagłówek z ikoną stanu sygnalizującą trwające automatyczne przemierzanie trasy}{header3}{.9}
+
+Aplikacja została dodatkowo wyposażona w elementy wspomagające pracę z grafem. Pod użytkownikiem widoczne są półprzezroczyste linie pomocnicze określające płaszczyznę podłoża. Przemieszczają się one z kamerą i mają na celu zapewnienie punktu odniesienia do innych obiektów otaczających użytkownika. Opisana siatka widoczna jest na Rysunku \ref{fig:widok_wezla}.
+
+Ostatnim elementem jest przestrzeń pomocy. Jest to specjalna przestrzeń wydzielona od struktury grafu, do której można wejść w dowolnej chwili korzystania z aplikacji. Użytkownik jest w niej umieszczany również na starcie programu. Zawiera ona podstawowe informacje o programie, a także zestaw infografik zapoznających użytkownika ze sposobami sterowania i możliwościami aplikacji (Rysunek \ref{fig:info_space}).
+
+\img{\chapterPath/img/info_space.png}{Jedna z infografik dostępnych w przestrzeni pomocy}{info_space}{.9}
