@@ -1,19 +1,19 @@
 \begin{chapter}{Podsumowanie}
 	\newcommand{\chapterPath}{rozdzialy/7_podsumowanie}
 	\label{ch:podsumowanie}
-
-	\noindent Podział zadań w projekcie oraz przy pisaniu pracy:
-	\begin{enumerate}[label=\textbullet]
-		\item \textbf{Stanisław Góra:} Podstawa aplikacji, integracja ze środowiskiem jaskini, nadzór nad całością
-		\item \textbf{Mikołaj Mirko:} Interfejs użytkownika oraz wygląd aplikacji oraz programu do tworzenia danych
-		\item \textbf{Jan Kruczyński:} Przetwarzanie danych Wikipedii na potrzeby aplikacji, ładowanie węzłów
-		\item \textbf{Mateusz Janicki:} Dodatkowe funkcje aplikacji: historia, trasy, wyszukiwanie
-	\end{enumerate}
 	
 	Głównym celem pracy inżynierskiej było zaproponowanie rozwiązania nietypowego przedstawienia treści dobrze znanego serwisu Wikipedia i zainteresowania nim potencjalnego użytkownika. Uwaga odbiorcy skierowana jest na strukturę Wikipedii i połączenia między artykułami i kategoriami, a nie ich treść.
 
 	Powstała aplikacja spełnia postawione na początku założenie. Wizualizacja grafu połączeń w przestrzeni pozwala zauważyć istniejące związki między stronami, które trudno zauważyć przeglądając serwis w przeglądarce internetowej. Aplikacja dołączy również do biblioteki materiałów dostępnych do uruchomienia w LZWP i pozwoli zaprezentować różne możliwości jaskini odwiedzającym ją gościom. Większość dostępnych aplikacji odzwierciedla świat rzeczywisty, nasza aplikacja pozwala wprowadzić użytkownika w zupełnie nowy, wygenerowany dynamicznie świat.
 
+	\noindent Podział zadań w projekcie oraz przy pisaniu pracy:
+	\begin{enumerate}[label=\textbullet]
+		\item \textbf{Stanisław Góra:} \newline Podstawa aplikacji, integracja ze środowiskiem jaskini, nadzór nad całością
+		\item \textbf{Mikołaj Mirko:} \newline Interfejs użytkownika oraz wygląd aplikacji oraz programu do tworzenia danych
+		\item \textbf{Jan Kruczyński:} \newline Przetwarzanie danych Wikipedii na potrzeby aplikacji, ładowanie węzłów
+		\item \textbf{Mateusz Janicki:} \newline Dodatkowe funkcje aplikacji: historia, trasy, wyszukiwanie
+	\end{enumerate}
+	
 	Projektowanie aplikacji na środowisko jaskini wirtualnej rzeczywistości wiąże się z wieloma trudnościami. Projekt od rozpoczęcia pracy nad nim uległ wielu zmianom, co łatwo zauważyć walidując specyfikację napisaną na samym początku z uzyskanym produktem końcowym. Bazowe założenia pozostały jednak bez zmian.
 
 	Wśród zmian w wymaganiach funkcjonalnych (Sekcja \ref{sec:wymagania-funkcjonalne}) znajduje się widok szczegółowy (podgląd części treści w odrębnym widoku aplikacji). Zrezygnowano z tej funkcjonalności ze względu na aktualny brak dostępu do Internetu w średniej i dużej jaskini. Widoki grafu (swobodnego poruszania się) oraz węzła (podgląd połączeń) zostały zaimplementowane bez zmian (Sekcja \ref{sec:tryby-widoki}). Funkcjonalność automatycznego i losowego poruszania się po węzłach grafu została zamieniona na możliwość odtwarzania wcześniej przygotowanych tras (Sekcja \ref{sec:history}). Celem tej opcji było ułatwienie prezentowania związków między artykułami, lecz w przypadku losowego podróżowania trudno odróżnić interesujące połączenia od pozostałych.
