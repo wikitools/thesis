@@ -1,0 +1,20 @@
+\section{Zarządzanie pamiecią w aplikacji}
+\sectionauthor{Jan Kruczyński}
+\label{sec:pamiec}
+Ze względu na to, że aplikacja doładowywuje węzły wraz z kolejnymi akcjami użytkownika gdy przemieszcza się on po grafie lub wskazuje na węzły w przestrzeni, musiał zostać opracowany sposób ich usuwania by utrzymać płynność działania. Aby to osiągnąć powstał odzielny kontroler zarządzania pamięcią.
+
+\begin{lstlisting}[caption={Pomocnicze struktury i zmienne kontrolera zarządzania pamięcią}, label=lst:nodePriority]
+private List<uint> lowPriorityNodes;%*\label{line:lowPriorityNodes}*)
+private List<uint> highPriorityNodes;%*\label{line:highPriorityNodes}*)
+public int maxAmountOfNodes;%*\label{line:maxNodes}*)
+\end{lstlisting}
+
+Węzły które są załadowane w aplikacji zostały podzielone na dwie kategorie - węzły niskiego priorytetu (\ref{line:lowPriorityNodes}), które są potencjalnmi kandydatami na węzły do usunięcia, oraz wysokiego priorytetu (\ref{line:highPriorityNodes}), których usunąć aktualnie nie można.
+
+Początkowo wszystkie załadowane węzły trafiają do listy niskiego priorytetu. Jeżeli użytkownik dokonuje interakcji z węzłem, to zarówno ten węzeł, jak i wszyscy wyświetlani jego sąsiedzi trafiają do listy wysokiego priorytetu. Jeżeli któryś z tych węzłów znajdował się w liście niskiego priorytetu, jest z niej usuwany i przenoszony na początek listy wysokiego priorytetu.
+
+Funkcjonuje to w taki sposób, aby aplikacja odładowywała w pierwszej kolejności węzły z którymi użytkownik nigdy nie miał interakcji - i dzięki temu nie dostrzegł, że czegoś brakuje. Jednocześnie realizowany jest dodatkowy cel, by ilość wyświetlanych (i przez to przechowywanych w pamięci) węzłów w jednej chwili czasu była stała z dokładnością do kilkunastu sztuk.
+
+Kontroler nasłuchuje zdarzenia załadowania węzła przez aplikację. Gdy takie zdarzenie zostanie wykryte, jeżeli liczba wszytkich węzłów które są wyświetlane w aplikacji nie przekracza maksymalnej dopuszczonej ilości, nie dzieje się nic. Jeżeli ta liczba zostanie przekroczona, odładowuje kilkanaście węzłów z listy niskiego priorytetu (\ref{line:lowPriorityNodes}).
+
+Gdy lista niskiego priorytetu jest pusta, kontroler przerzuca najstarsze węzły z listy wysokiego priorytetu do niskiego (są to węzły z którymi użytkownik prowadził interakcję najdawniej). Gdy użytkownik dokonuje interakcji z węzłem, jest on przerzucany na sam początek listy wysokiego priorytetu.
