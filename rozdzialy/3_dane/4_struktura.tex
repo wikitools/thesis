@@ -67,7 +67,7 @@ Po zakończeniu tego etapu zostały wygenerowane następujące pliki:
 \end{itemize}
 
 \subsection{Opis poszczególnych plików}
-Aby osiągnąć postawione wymagania, utworzono strukturę rozbitą na 4 pliki. Wszystkie posiadają tą samą nazwę. Jest nią nazwa wersji Wikipedii, którą opisują (np. simple-wiki lub pl-wiki). Różnią się rozszerzeniami, gdyż każdy plik posiada inną strukturę.
+Aby osiągnąć postawione wymagania, utworzono strukturę rozbitą na 5 plików. Wszystkie posiadają tą samą nazwę. Jest nią nazwa wersji Wikipedii, którą opisują (np. simple-wiki lub pl-wiki). Różnią się rozszerzeniami, gdyż każdy plik posiada inną strukturę.
 
 \paragraph{Plik mapy \codeinline{.wgm}}
 Jest to plik instruujący aplikację, na którym miejscu w innych plikach odnajdzie interesujące dane. Każdy węzeł zawiera swój wpis w pliku \codeinline{.map} zajmując dokładnie 12 bajtów o strukturze opisanej w Tablicy \ref{tab:structure-mapfile}. Offset informuje, od którego bajtu w danym pliku możemy odczytywać informację o danym węźle.
@@ -104,6 +104,16 @@ Zawiera wyłącznie jedną liczbę typu int - jest to ilość artykułów, któr
 
 Zawiera w sobie zapisane w formacie UTF-8 tytuły wszystkich artykułów i kategorii.
 
+\paragraph{Plik odwzorowań posortowanych tytułów \codeinline{.wgs}}
+
+Aby umożliwić szybkie działanie wyszukiwarki, utworzono oddzielny plik o prostej do przeszukiwania strukturze. Zawiera on posortowane alfabetycznie wszystkie tytuły - zarówno kategorie jak i artykuły, zakodowane w formacie UTF-8. Aby ułatwić przeszukiwanie, każdy węzeł jest reprezentowany przez oddzielny wiersz o formacie:
+
+\tabela{
+ \hline
+ Tytuł węzła & ";" & Numer węzła (od 0) w pliku \codeinline{.wgm} & "\textbackslash n" \\\hline
+}{|c | c | c | c|p{0.4\textwidth}| }{Reprezentacja pojedynczego węzła w pliku \codeinline{.wgs}}{structure-sortfile}
+
+
 \subsection{Metoda generowania plików}
 
 Program generujący pliki \codeinline{.wgX} został napisany w języku C\#.
@@ -112,11 +122,9 @@ Program zawiera kilka pomocniczych struktur ułatwiających konstrukcję wynikow
 \begin{lstlisting}[caption={Pomocnicze struktury dla programu generującego pliki dla aplikacji}, label=lst:graph-object]
 Dictionary<int, int> pageMap;%*\label{line:pageMap}*)
 Dictionary<int, int> categoryMap;%*\label{line:categoryMap}*)
-List<int, string> pageTitles;%*\label{line:pageTitles}*)
-List<int, string> categoryTitles;%*\label{line:catTitles}*)
+List<string, int> sortedTitles;%*\label{line:sortedTitles}*)
 
-public class GraphObject
-{
+public class GraphObject {
     public bool isArticle;%*\label{line:go-article}*)
     public int id;%*\label{line:go-id}*)
     public string title;%*\label{line:go-title}*)
@@ -126,18 +134,18 @@ public class GraphObject
 }
 \end{lstlisting}
 
-Linijki \ref{line:pageMap} i \ref{line:categoryMap} to mapy przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (które reprezentuje dany węzeł w plikach \codeinline{.map}) na numer w kolejności węzła w pliku \codeinline{.wgm} (nowo utworzone ID (\ref{line:go-order})). Jako że kategorie oraz artykuły mogą posiadać takie samo ID Wikipedii, potrzebne na to są dwie oddzielne struktury. \ref{line:pageTitles} i \ref{line:catTitles} stanowią listy przechowujące tuple odzworowań ID i tytułu pliku do późniejszej generacji posortowanych tytułów (wartości z linii \ref{line:go-order} i \ref{line:go-title})
+Linijki \ref{line:pageMap} i \ref{line:categoryMap} to mapy przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (które reprezentuje dany węzeł w plikach \codeinline{.map}) na numer w kolejności węzła w pliku \codeinline{.wgm} (nowo utworzone ID (\ref{line:go-order})). Jako że kategorie oraz artykuły mogą posiadać takie samo ID Wikipedii, potrzebne na to są dwie oddzielne struktury. \ref{line:sortedTitles} stanowi listę przechowującą tuple tytułu węzła i odzworowania ID do późniejszej generacji posortowanych tytułów (wartości z linii \ref{line:go-title} i \ref{line:go-order})
 
 Każdy węzeł podczas przetwarzania jest traktowany jako GraphObject i dodatkowo zawiera w sobie informacje o tytule na Wikipedii (\ref{line:go-title}), liczbie informującej od którego bajtu, w pliku tytułów \codeinline{.wgt} (\ref{line:go-offsetTitle}) oraz struktury grafu \codeinline{.wgg} (\ref{line:go-offsetGraph}), zostanie zapisana jego informacja oraz o tym, czy jest artykułem czy kategorią (\ref{line:go-article}).
 
 \paragraph{Operacje przygotowujące}
 Zanim program rozpocznie generację właściwych plików \codeinline{.wgX}, potrzebuje dokonać generacji. W pierwszej kolejności program wywołuje metodę generującą odwzorowania odwrotne dla każdego z wymagających tego trzech plików, zgodnie z metodą opisaną w rozdziale 3.4.1.
 
-Następnie program odczytuje tytuły wszystkich artykułów i linia po linii zapełnia mapę pageMap (\ref{line:pageMap}) oraz pageTitles (\ref{line:pageTitles}). Po tym etapie odczytuje tytuły kategorii i wypełnia categoryMap oraz categoryTitles w analogiczny sposób. Iteracja jest jednorazowa po wszystkich tytułach, więc złożoność obliczeniowa tego etapu to $O(n)$
+Następnie program odczytuje tytuły wszystkich artykułów i linia po linii zapełnia mapę pageMap (\ref{line:pageMap}) oraz sortedTitles (\ref{line:sortedTitles}). Po tym etapie odczytuje tytuły kategorii i wypełnia categoryMap oraz dalej uzupełnia listę sortedTitles w analogiczny sposób. Iteracja jest jednorazowa po wszystkich tytułach, więc złożoność obliczeniowa tego etapu to $O(n)$
 
-Dzięki zapisaniu map odwzorowań tytułów (\ref{line:pageTitles} i \ref{line:catTitles}) w tuplach, sortowanie możliwe jest do realizacji metodą Array.Sort() z własną implementacją porównania elementów IComparer<T>. Metoda sortująca dostarczona jest przez samą technologię .NET, a algorytm sortujący to implementacja algorytmu QuickSort, który posiada średnią złożoność obliczeniową $O(n\log n)$.
+Dzięki zapisaniu mapy odwzorowań tytułów (\ref{line:sortedTitles}) w tuplach, sortowanie możliwe jest do realizacji metodą Array.Sort() z własną implementacją porównania elementów IComparer<T>. Metoda sortująca dostarczona jest przez samą technologię .NET, a algorytm sortujący to implementacja algorytmu QuickSort, który posiada średnią złożoność obliczeniową $O(n\log n)$.
 
-Następnie program odczytuje wszystkie elementy z posortowanej listy i zapisuje je pojedynczo do pliku \textit{sortedPageTitles.map} dla tytułów artykułów oraz \textit{sortedCategoryTitles.map} dla kategorii. Następuje iteracja po każdym elemencie listy, co oznacza złożoność obliczeniową $O(n)$. Po dokonaniu zapisu mapy tytułów nie są już potrzebne w dalszej części programu, więc następuje ich usunięcie z pamięci.
+Następnie program odczytuje wszystkie elementy z posortowanej listy i zapisuje je pojedynczo do pliku \codeinline{.wgs} dla tytułów artykułów oraz \textit{sortedCategoryTitles.map} dla kategorii. Następuje iteracja po każdym elemencie listy, co oznacza złożoność obliczeniową $O(n)$. Po dokonaniu zapisu mapy tytułów nie są już potrzebne w dalszej części programu, więc następuje ich usunięcie z pamięci.
 
 Uznając ilość artykułów za $n$, a ilość kategorii za $m$, łączna złożoność obliczeniowa algorytmów etapu operacji, przygotowujących generację plików, została przedstawiona we wzorze \ref{eq:initial_operations}.
 
@@ -147,7 +155,7 @@ O(2n) + O(n\log n) + O(2m) + O(m \log m)
 %\caption{Złożoność obliczeniowa etapu przygotowującego generację plików}
 \end{equation}
 
-\paragraph{Generacja plików Wikigrphu}
+\paragraph{Generacja plików Wikigraphu}
 Kolejnym etapem jest już faktyczne zapisanie danych o węźle do wszystkich plików. Liczba artykułów jest już znana - wystarczy policzyć elementy w mapie pageMap (linia \ref{line:pageMap} w Listingu \ref{lst:graph-object}) - i zapisać ją do pliku \codeinline{.wgi}.
 
 Aby zachować taką samą kolejność węzłów, ponownie dokonany jest odczyt pliku tytułów dla artykułów, i dla każdego węzła parsowane są informacje do struktury reprezentującej dany element w programie (Listing \ref{lst:graph-object}). Program jest napisany w postaci klasy zawierającej wszystkie metody zapisu i odczytu danych, co umożliwia łatwe przekazywanie zmiennych pomiędzy metodami, bez konieczności przekazywania wszystkiego w argumentach.
