@@ -32,12 +32,12 @@ Przetwarzanie danych jest rozpoczynane po naciśnięciu przycisku \textit{Start}
 
     Podczas tego kroku tworzone są pliki z rozszerzeniem \codeinline{.map}, zawierające tylko te dane, które są wykorzystywane do dalszego przetwarzania. Na tym etapie odbywa się również sortowanie danych – użyty jest pakiet \codeinline{Sortiously}\footnote{Pakiet użytkownika fredgdaley2 dostępny jest w serwisie GitHub: https://github.com/fredgdaley2/Sortiously}.
 
-    \item \textit{Generating WikiGraph files}
+    \item \textit{Mapping graph data}
 
-    Ten krok przetwarza przerobione i uporządkowane dane do plików grafu o strukturze binarnej, czytanych przez aplikację główną (podrozdział \ref{sec:data-files}). Wykorzystane są m.in. klasy takie jak \codeinline{BinaryWriter} oraz \codeinline{BinaryConverter}.
+    Ten krok przetwarza przerobione i uporządkowane dane uzupełniając je o brakujące odwrotne połączenia. Problem ten został opisany w sekcji \ref{sec:generating-missing-files}.
 
-    \item \textit{Saving files and cleaning up}	
+    \item \textit{Generating WikiGraph files}	
 
-    Po zakończeniu poprzednich etapów, niepotrzebne, tymczasowe pliki zostają usunięte z dysku. We wskazanym folderze powinna pojawić się struktura folderów wspierająca możliwość posiadania wielu wersji na raz.
+    Na koniec tworzone są pliki grafu o strukturze binarnej, czytane przez aplikację główną (podrozdział \ref{sec:data-files}). Wykorzystane są m.in. klasy takie jak \codeinline{BinaryWriter} oraz \codeinline{BinaryConverter}. Po zakończeniu poprzednich etapów, niepotrzebne, tymczasowe pliki zostają usunięte z dysku.
 
 \end{enumerate}
