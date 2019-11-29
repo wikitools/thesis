@@ -9,7 +9,7 @@ private List<uint> highPriorityNodes;%*\label{line:highPriorityNodes}*)
 public int maxAmountOfNodes;%*\label{line:maxNodes}*)
 \end{lstlisting}
 
-Węzły które są załadowane w aplikacji zostały podzielone na dwie kategorie - węzły niskiego priorytetu (\ref{line:lowPriorityNodes}), które są potencjalnmi kandydatami na węzły do usunięcia, oraz wysokiego priorytetu (\ref{line:highPriorityNodes}), których usunąć aktualnie nie można.
+Węzły które są załadowane w aplikacji zostały podzielone na dwie kategorie - węzły niskiego priorytetu (\ref{line:lowPriorityNodes}), które są potencjalnymi kandydatami na węzły do usunięcia, oraz wysokiego priorytetu (\ref{line:highPriorityNodes}), których usunąć aktualnie nie można.
 
 Początkowo wszystkie załadowane węzły trafiają do listy niskiego priorytetu. Jeżeli użytkownik dokonuje interakcji z węzłem, to zarówno ten węzeł, jak i wszyscy wyświetlani jego sąsiedzi trafiają do listy wysokiego priorytetu. Jeżeli któryś z tych węzłów znajdował się w liście niskiego priorytetu, jest z niej usuwany i przenoszony na początek listy wysokiego priorytetu.
 
