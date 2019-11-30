@@ -34,6 +34,7 @@ tlmgr option -- autobackup 0
 tlmgr update --self --all --no-auto-install
 
 sudo apt-get update
+sudo dpkg-reconfigure debconf -f noninteractive
 sudo apt-get install ttf-mscorefonts-installer
 sudo fc-cache
 fc-match Arial
