@@ -98,11 +98,11 @@ Jest to plik zawierający dane połączeń skierowanego grafu. Rozróżniane są
  N: Ilość połączeń typu \#1 & a$_{1}$, b$_{2}$, c$_{3}$, \dots\, z$_{N}$ & A$_{1}$, B$_{2}$, C$_{3}$, \dots\, Z$_{X}$ \\\hline
 }{|c | c | c|p{0.4\textwidth}| }{Reprezentacja pojedynczego węzła w pliku \lstinline{.wgg}}{structure-graphfile}
 
-A$_{1}$, B$_{2}$, C$_{3}$ oraz a$_{1}$, b$_{2}$, c$_{3}$ to nie są ID artykułów Wikipedii, lecz informacje, który z kolei artykuł z pliku \codeinline{.wgm} mamy na myśli. Jako że ilość węzłów nigdy nie przekracza $2^{24}$, 3 bajty wystarczają na przekazanie tej informacji.
+A$_{1}$, B$_{2}$, C$_{3}$ oraz a$_{1}$, b$_{2}$, c$_{3}$ to nie są ID artykułów Wikipedii, lecz informacje, który z kolei artykuł z pliku \codeinline{.wgm} mamy na myśli. Jako że ilość węzłów nigdy nie przekracza $2^{24}$, 3 bajty wystarczają na~przekazanie tej informacji.
 
 \paragraph{Plik informacyjny \codeinline{.wgi}}
 
-Zawiera wyłącznie jedną, 4-bajtową liczbę typu \codeinline{int} - jest to ilość artykułów, które znajdują się w plikach. Jest to jedyne rozróżnienie dla aplikacji, który węzeł traktować jako artykuł, a który jako kategorię - w pozostałych plikach nie ma pomiędzy nimi rozróżnienia. Do plików najpierw są zapisywane wszystkie artykuły, dzięki czemu przy pobieraniu danych o węźle, aplikacja oznacza ów~węzeł jako kategorię, gdy jego numer w pliku \codeinline{.wgm} jest większy niż wartość w pliku \codeinline{.wgi}. 
+Zawiera wyłącznie jedną, 4-bajtową liczbę typu \codeinline{int} - jest to ilość artykułów, które znajdują się w plikach. Jest to jedyne rozróżnienie dla aplikacji, który węzeł traktować jako artykuł, a który jako kategorię - w pozostałych plikach nie ma pomiędzy nimi rozróżnienia. Do plików najpierw są~zapisywane wszystkie artykuły, dzięki czemu przy pobieraniu danych o węźle, aplikacja oznacza ów~węzeł jako kategorię, gdy jego numer w pliku \codeinline{.wgm} jest większy niż wartość w pliku \codeinline{.wgi}. 
 
 \paragraph{Plik tytułów \codeinline{.wgt}}
 
@@ -140,7 +140,7 @@ public class GraphObject {
 
 Na listingu \ref{lst:graph-object} linijki \ref{line:pageMap} i \ref{line:categoryMap} to mapy przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (który reprezentuje dany węzeł w plikach \codeinline{.map}) na numer w kolejności węzła w pliku \codeinline{.wgm} (nowo utworzony ID (\ref{line:go-order})). Jako że kategorie oraz artykuły mogą posiadać taki sam ID Wikipedii, potrzebne na~to~są~dwie oddzielne struktury. Konstrukcja w wierszu \ref{line:sortedTitles} stanowi listę przechowującą krotki tytułu węzła i~odwzorowania ID do późniejszej generacji posortowanych tytułów (wartości z linii \ref{line:go-title} i~\ref{line:go-order})
 
-Każdy węzeł podczas przetwarzania jest traktowany jako \codeinline{GraphObject} i zawiera w sobie informacje o tytule na Wikipedii (\ref{line:go-title}), liczbie informującej od którego bajtu, w pliku tytułów \codeinline{.wgt} (\ref{line:go-offsetTitle}) oraz strukturze grafu \codeinline{.wgg} (\ref{line:go-offsetGraph}) zostanie zapisana ta informacja oraz o tym, czy jest artykułem czy kategorią~(\ref{line:go-article}).
+Każdy węzeł podczas przetwarzania jest traktowany jako \codeinline{GraphObject} i zawiera w sobie informacje o tytule na Wikipedii (\ref{line:go-title}), liczbie informującej od którego bajtu, w pliku tytułów \codeinline{.wgt} (\ref{line:go-offsetTitle}) oraz strukturze grafu \codeinline{.wgg} (\ref{line:go-offsetGraph}) zostanie zapisana ta informacja oraz o tym, czy jest artykułem czy~kategorią~(\ref{line:go-article}).
 
 \paragraph{Operacje przygotowujące}
 Zanim program rozpocznie generację właściwych plików \codeinline{.wg}\textit{X}, potrzebuje dokonać generacji. W pierwszej kolejności program wywołuje metodę generującą odwzorowania odwrotne dla każdego z wymagających tego trzech plików, zgodnie z metodą opisaną w rozdziale \ref{sec:generating-missing-files}.
