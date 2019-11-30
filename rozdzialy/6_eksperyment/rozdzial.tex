@@ -1,7 +1,7 @@
 \begin{chapter}{Eksperyment}
 	\newcommand{\chapterPath}{rozdzialy/6_eksperyment}	
 	\sectionauthor{Mateusz Janicki}
-Aplikacja została przetestowana na dużej jaskini, po pomyślnym przejściu testów na małej jaskini. Początkowo występowały drobne problemy z synchronizacją, jednak zostały one przez nas rozwiązane. Dopiero na środowisku docelowym istnieje możliwość sprawdzenia poprawności działania efektu 3D przy użyciu okularów zamieszczonych na Rysunku \ref{fig:okulary} oraz intensywniejszej synchronizacji między komputerami. 
+Aplikacja została przetestowana na dużej jaskini, po pomyślnym przejściu testów na małej jaskini. Początkowo występowały drobne problemy z synchronizacją, jednak zostały one przez nas rozwiązane. Dopiero na środowisku docelowym istnieje możliwość sprawdzenia poprawności działania efektu 3D przy użyciu okularów zamieszczonych na rysunku \ref{fig:okulary} oraz intensywniejszej synchronizacji między komputerami. 
 
 \img{\chapterPath/img/okulary-min.JPG}{Okulary umożliwiające widzenie w 3D}{okulary}{.8}
 
@@ -19,26 +19,26 @@ Po przejściu do widoku grafu ponownie otaczają nas jedynie losowe węzły, a p
 Inicjalnie pomoc dotycząca sterowania wyświetlana jest przy starcie aplikacji. Po przejściu do trybu grafu w każdym momencie możliwe jest jednak wyświetlenie pomocy za pomocą przycisku 1 na kontrolerze. Wychodzeniu i wchodzeniu do pomocy za każdym razem towarzyszy efekt dźwiękowy.
 \end{enumerate}
 
-Poza wymienionymi wyżej scenariuszami w trakcie eksperymentu sprawdzono również poprawność innych funkcji. Wielokrotnie wykonywano podstawowe akcje dostępne w aplikacji, takie jak pokazywanie pomocy przedstawione na Rysunku \ref{fig:pomoc}, czy wskazywanie artykułów i kategorii w trybie swobodnego lotu po grafie (Rysunek \ref{fig:swobodny_ruch}). 
+Poza wymienionymi wyżej scenariuszami w trakcie eksperymentu sprawdzono również poprawność innych funkcji. Wielokrotnie wykonywano podstawowe akcje dostępne w aplikacji, takie jak pokazywanie pomocy przedstawione na rysunku \ref{fig:pomoc}, czy wskazywanie artykułów i kategorii w trybie swobodnego lotu po grafie (rysunek \ref{fig:swobodny_ruch}). 
 
 \img{\chapterPath/img/pomoc-min.JPG}{Ekran pomocy zawierający informacje o sterowaniu}{pomoc}{.8}
 
 \img{\chapterPath/img/swobodny_ruch-min.JPG}{Wskazywanie artykułu w trybie swobodnego lotu}{swobodny_ruch}{.8}
 
-Ponadto poprawnie działa przechodzenie do trybu chodzenia po węzłach. Tryb ten został przedstawiony na Rysunku \ref{fig:artykul} dla zaznaczonego artykułu oraz na Rysunku \ref{fig:kategoria} dla zaznaczonej kategorii. 
+Ponadto poprawnie działa przechodzenie do trybu chodzenia po węzłach. Tryb ten został przedstawiony na rysunku \ref{fig:artykul} dla zaznaczonego artykułu oraz na rysunku \ref{fig:kategoria} dla zaznaczonej kategorii. 
 
 \img{\chapterPath/img/artykul_wybrany-min.JPG}{Widok węzła dla wybranego artykułu}{artykul}{.8}
 
 \img{\chapterPath/img/kategoria_wybrana_inne_kategorie-min.JPG}{Widok węzła dla wybranej kategorii}{kategoria}{.8}
 
-Problematyczne okazało się wyświetlanie węzłów na krawędziach ścian jaskini. Ewentualne nieścisłości najbardziej widoczne są w trybie chodzenia po węzłach. Gdy przesuwamy kamerę za pomocą joysticka w lewo i prawo można zauważyć płynne przechodzenie grafik połączonych węzłów ze ściany na ścianę na Rysunku \ref{fig:zachodzenie}, co świadczy o poprawnym działaniu usuwaniu niewidocznych powierzchni (ang. frustum culling). 
-Przetestowane zostało również wskazywanie (Rysunek \ref{fig:wskazywanie}) i wybieranie połączeń oraz zmiana trybu wyświetlania. Za każdym razem poprawnie wyświetlana jest ikona informująca o stanie połączeń. Aplikacja zachowuje się poprawnie przy cofaniu i ponawianiu akcji wykonanych przez użytkownika. 
+Problematyczne okazało się wyświetlanie węzłów na krawędziach ścian jaskini. Ewentualne nieścisłości najbardziej widoczne są w trybie chodzenia po węzłach. Gdy przesuwamy kamerę za pomocą joysticka w lewo i prawo można zauważyć płynne przechodzenie grafik połączonych węzłów ze ściany na ścianę na rysunku \ref{fig:zachodzenie}, co świadczy o poprawnym działaniu usuwaniu niewidocznych powierzchni (ang. frustum culling). 
+Przetestowane zostało również wskazywanie (rysunek \ref{fig:wskazywanie}) i wybieranie połączeń oraz zmiana trybu wyświetlania. Za każdym razem poprawnie wyświetlana jest ikona informująca o stanie połączeń. Aplikacja zachowuje się poprawnie przy cofaniu i ponawianiu akcji wykonanych przez użytkownika. 
 
 \img{\chapterPath/img/kategoria_wybrana_artykuly-min.JPG}{Wyświetlanie prawidłowego kształtu dla węzła znajdującego się na dwóch ścianach jaskini}{zachodzenie}{.8}
 
 \img{\chapterPath/img/kategoria_wskazywana_wybrana-min.JPG}{Wskazywanie kategorii w widoku węzła}{wskazywanie}{.8}
 
-W momencie włączenia konsoli operatora, pojawia się ikona informująca użytkownika o otwartej konsoli (Rysunek \ref{fig:ikona_konsoli}). Operator może wyszukać dowolny węzeł, a wyniki wyszukiwania aktualizują się w momencie zmiany pola tekstowego (Rysunek \ref{fig:konsola}). Poprawnie działa również funkcjonalność związana z trasami - możliwe jest odtwarzanie i wyłączanie tras. Wszystkim akcjom użytkownika towarzyszy efekt dźwiękowy, co dodatkowo informuje użytkownika o odebraniu sygnału przez aplikację.
+W momencie włączenia konsoli operatora, pojawia się ikona informująca użytkownika o otwartej konsoli (rysunek \ref{fig:ikona_konsoli}). Operator może wyszukać dowolny węzeł, a wyniki wyszukiwania aktualizują się w momencie zmiany pola tekstowego (rysunek \ref{fig:konsola}). Poprawnie działa również funkcjonalność związana z trasami - możliwe jest odtwarzanie i wyłączanie tras. Wszystkim akcjom użytkownika towarzyszy efekt dźwiękowy, co dodatkowo informuje użytkownika o odebraniu sygnału przez aplikację.
 
 \img{\chapterPath/img/ikona_konsoli-min.JPG}{Ikona informująca o otwartej konsoli operatora}{ikona_konsoli}{.8}
 
