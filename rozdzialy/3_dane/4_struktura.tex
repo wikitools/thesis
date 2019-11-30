@@ -34,7 +34,7 @@ Dictionary<int, List<string>> reverseMap = new Dictionary<int, List<string>>();
 
 Jako że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, słownik zdefiniowany w listingu \ref{lst:reverse-map} został umieszczony w strukturze \codeinline{SortedDictionary}, a następnie zapisany w pliku o~odpowiedniej nazwie. 
 
-Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku \codeinline{.map}, który przetwarzamy), typu \codeinline{int}, aby umożliwić łatwe sortowanie. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \codeinline{.map}. Jako że nie ma potrzeby rzutowania na~typ numeryczny - odczyt i zapis operuje na typie \codeinline{string} - lista przechowuje właśnie takie wartości. Przykład odwzorowania odwrotnego widać na listingach \ref{lst:page_links} i \ref{lst:rev_page_links}.
+Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku~\codeinline{.map}, który przetwarzamy), typu \codeinline{int}, aby umożliwić łatwe sortowanie. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \codeinline{.map}. Jako że nie ma potrzeby rzutowania na~typ numeryczny - odczyt i zapis operuje na typie \codeinline{string} - lista przechowuje właśnie takie wartości. Przykład odwzorowania odwrotnego widać na listingach \ref{lst:page_links} i \ref{lst:rev_page_links}.
 
 \begin{figure}[!h]
 \begin{center}
