@@ -43,7 +43,7 @@
 
 \RequirePackage{polski}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[utf8]{inputenc}
+%\RequirePackage[utf8]{inputenc}
 
 %--------------------------------------------------------------------
 % Podstawowa czcionka - Helvetica (Zamiennik dla czcionki Arial)
