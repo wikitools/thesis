@@ -1,7 +1,7 @@
 \section{Pobieranie i dekompresja}
 \sectionauthor{Mikołaj Mirko}
 \label{sec:data-download}
-Serwis Wikimedia Downloads, oprócz skompresowanych plików zrzutów, posiada również plik o nazwie \textit{index.json}. Zawiera on spis wszystkich ostatnio wykonanych operacji archiwizacyjnych na bazie danych. Na jego podstawie łatwo uzyskać bezpośrednie adresy URL do interesujących nas plików, a także dodatkowe informacje o ich rozmiarze i dacie stworzenia. Zawiera on również status przetwarzania każdej porcji danych – wszystkie pobierane pliki muszą być zakończone w ramach tego samego zrzutu, inaczej nie będą ze sobą zgodne, co uniemożliwi generowanie plików wejściowych aplikacji. Listing \ref{lst:dump_index} przedstawia przykładowy fragment pliku \textit{index.json}.
+Serwis Wikimedia Downloads, oprócz skompresowanych plików zrzutów, posiada również plik o nazwie \codeinline{index.json}. Zawiera on spis wszystkich ostatnio wykonanych operacji archiwizacyjnych na bazie danych. Na jego podstawie łatwo uzyskać bezpośrednie adresy URL do interesujących nas plików, a także dodatkowe informacje o ich rozmiarze i dacie stworzenia. Zawiera on również status przetwarzania każdej porcji danych – wszystkie pobierane pliki muszą być zakończone w ramach tego samego zrzutu, inaczej nie będą ze sobą zgodne, co uniemożliwi generowanie plików wejściowych aplikacji. Listing \ref{lst:dump_index} przedstawia przykładowy fragment pliku \codeinline{index.json}.
 
 \begin{lstlisting}[frame=single,caption={Fragment informacji o ostatnim zrzucie bazy danych polskiej Wikipedii},label=lst:dump_index]
     "plwiki": {
@@ -28,9 +28,9 @@ Serwis Wikimedia Downloads, oprócz skompresowanych plików zrzutów, posiada r�
 Na potrzeby naszej aplikacji potrzebujemy danych z następujących trzech plików:
 
 \begin{enumerate}[label=\textbullet]
-    \item \textit{page.sql.gz} – posiada identyfikatory stron artykułów i kategorii, ich przestrzenie nazw oraz tytuły (reszta informacji nie jest wykorzystywana),
-    \item \textit{pagelinks.sql.gz} – zawiera spis wewnętrznych połączeń między artykułami - są to odnośniki znajdujące się w treści artykułu, prowadzące do powiązanych tematycznie innych artykułów,
-    \item \textit{categorylinks.sql.gz} – zawiera, analogiczny do poprzedniego pliku, spis połączeń między kategoriami oraz między artykułami a kategoriami.
+    \item \codeinline{page.sql.gz} – posiada identyfikatory stron artykułów i kategorii, ich przestrzenie nazw oraz tytuły (reszta informacji nie jest wykorzystywana),
+    \item \codeinline{pagelinks.sql.gz} – zawiera spis wewnętrznych połączeń między artykułami - są to odnośniki znajdujące się w treści artykułu, prowadzące do powiązanych tematycznie innych artykułów,
+    \item \codeinline{categorylinks.sql.gz} – zawiera, analogiczny do poprzedniego pliku, spis połączeń między kategoriami oraz między artykułami a kategoriami.
 \end{enumerate}
 
 Rozmiary wymienionych plików zależą od wielkości Wikipedii, z której pochodzą. Suma rozmiarów tych trzech plików dla angielskiej Wikipedii wynosi około 10GB, zaś dla Polskiej około 1GB. Istnieje także wiele innych, drobniejszych encyklopedii (w mniej popularnych językach oraz zawierających dane z innych projektów). Ich rozmiary mogą mieścić się w kilku megabajtach. Wielkość danych po dekompresji z formatu \codeinline{.gz} jest w stanie wzrosnąć nawet dziesięciokrotnie.
