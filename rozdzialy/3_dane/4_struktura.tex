@@ -32,9 +32,9 @@ Dane, które są potrzebne, nie znajdują się w plikach SQL, lecz dzięki opisa
 Dictionary<int, List<string>> reverseMap = new Dictionary<int, List<string>>();
 \end{lstlisting}
 
-Jako że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, słownik zdefiniowany w listingu \ref{lst:reverse-map} został umieszczony w strukturze \codeinline{SortedDictionary}, a następnie zapisany w pliku o odpowiedniej nazwie. 
+Jako że pliki .map są uporządkowane według ID, aby osiągnąć ten sam efekt, słownik zdefiniowany w listingu \ref{lst:reverse-map} został umieszczony w strukturze \codeinline{SortedDictionary}, a następnie zapisany w pliku o~odpowiedniej nazwie. 
 
-Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku \codeinline{.map}, który przetwarzamy), typu \codeinline{int}, aby umożliwić łatwe sortowanie. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \codeinline{.map}. Jako że nie ma potrzeby rzutowania na typ numeryczny - odczyt i zapis operuje na typie \codeinline{string} - lista przechowuje właśnie takie wartości. Przykład odwzorowania odwrotnego widać na listingach \ref{lst:page_links} i \ref{lst:rev_page_links}.
+Klucz w słowniku to ID Wikipedii danego artykułu lub kategorii (w zależności od pliku \codeinline{.map}, który przetwarzamy), typu \codeinline{int}, aby umożliwić łatwe sortowanie. Wartość danego klucza to lista powiązanych połączeń, analogiczna do pliku źródłowego \codeinline{.map}. Jako że nie ma potrzeby rzutowania na~typ numeryczny - odczyt i zapis operuje na typie \codeinline{string} - lista przechowuje właśnie takie wartości. Przykład odwzorowania odwrotnego widać na listingach \ref{lst:page_links} i \ref{lst:rev_page_links}.
 
 \begin{figure}[!h]
 \begin{center}
@@ -102,7 +102,7 @@ A$_{1}$, B$_{2}$, C$_{3}$ oraz a$_{1}$, b$_{2}$, c$_{3}$ to nie są ID artykuł�
 
 \paragraph{Plik informacyjny \codeinline{.wgi}}
 
-Zawiera wyłącznie jedną, 4-bajtową liczbę typu \codeinline{int} - jest to ilość artykułów, które znajdują się w plikach. Jest to jedyne rozróżnienie dla aplikacji, który węzeł traktować jako artykuł, a który jako kategorię - w pozostałych plikach nie ma pomiędzy nimi rozróżnienia. Do plików najpierw są zapisywane wszystkie artykuły, dzięki czemu przy pobieraniu danych o węźle, aplikacja oznacza ów węzeł jako kategorię, gdy jego numer w pliku \codeinline{.wgm} jest większy niż wartość w pliku \codeinline{.wgi}. 
+Zawiera wyłącznie jedną, 4-bajtową liczbę typu \codeinline{int} - jest to ilość artykułów, które znajdują się w plikach. Jest to jedyne rozróżnienie dla aplikacji, który węzeł traktować jako artykuł, a który jako kategorię - w pozostałych plikach nie ma pomiędzy nimi rozróżnienia. Do plików najpierw są zapisywane wszystkie artykuły, dzięki czemu przy pobieraniu danych o węźle, aplikacja oznacza ów~węzeł jako kategorię, gdy jego numer w pliku \codeinline{.wgm} jest większy niż wartość w pliku \codeinline{.wgi}. 
 
 \paragraph{Plik tytułów \codeinline{.wgt}}
 
@@ -110,7 +110,7 @@ Zawiera w sobie zapisane w formacie UTF-8 tytuły wszystkich artykułów i kateg
 
 \paragraph{Plik odwzorowań posortowanych tytułów \codeinline{.wgs}}
 
-Aby umożliwić szybkie działanie wyszukiwarki, utworzono oddzielny plik o prostej do przeszukiwania strukturze (tablica \ref{tab:structure-sortfile}). Zawiera on posortowane alfabetycznie wszystkie tytuły - zarówno kategorie jak i artykuły, zakodowane w formacie UTF-8. Aby ułatwić przeszukiwanie, każdy węzeł jest reprezentowany przez oddzielny wiersz o formacie:
+Aby umożliwić szybkie działanie wyszukiwarki, utworzono oddzielny plik o prostej do przeszukiwania strukturze (tablica \ref{tab:structure-sortfile}). Zawiera on posortowane alfabetycznie wszystkie tytuły - zarówno kategorie jak i artykuły, zakodowane w formacie UTF-8. Aby~ułatwić przeszukiwanie, każdy węzeł jest reprezentowany przez oddzielny wiersz o formacie:
 
 \tabela{
  \hline
@@ -138,9 +138,9 @@ public class GraphObject {
 }
 \end{lstlisting}
 
-Na listingu \ref{lst:graph-object} linijki \ref{line:pageMap} i \ref{line:categoryMap} to mapy przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (który reprezentuje dany węzeł w plikach \codeinline{.map}) na numer w kolejności węzła w pliku \codeinline{.wgm} (nowo utworzony ID (\ref{line:go-order})). Jako że kategorie oraz artykuły mogą posiadać taki sam ID Wikipedii, potrzebne na to są dwie oddzielne struktury. Konstrukcja w wierszu \ref{line:sortedTitles} stanowi listę przechowującą krotki tytułu węzła i odwzorowania ID do późniejszej generacji posortowanych tytułów (wartości z linii \ref{line:go-title} i \ref{line:go-order})
+Na listingu \ref{lst:graph-object} linijki \ref{line:pageMap} i \ref{line:categoryMap} to mapy przechowujące odwzorowanie ID z Wikipedii (\ref{line:go-id}) (który reprezentuje dany węzeł w plikach \codeinline{.map}) na numer w kolejności węzła w pliku \codeinline{.wgm} (nowo utworzony ID (\ref{line:go-order})). Jako że kategorie oraz artykuły mogą posiadać taki sam ID Wikipedii, potrzebne na~to~są~dwie oddzielne struktury. Konstrukcja w wierszu \ref{line:sortedTitles} stanowi listę przechowującą krotki tytułu węzła i~odwzorowania ID do późniejszej generacji posortowanych tytułów (wartości z linii \ref{line:go-title} i~\ref{line:go-order})
 
-Każdy węzeł podczas przetwarzania jest traktowany jako \codeinline{GraphObject} i zawiera w sobie informacje o tytule na Wikipedii (\ref{line:go-title}), liczbie informującej od którego bajtu, w pliku tytułów \codeinline{.wgt} (\ref{line:go-offsetTitle}) oraz strukturze grafu \codeinline{.wgg} (\ref{line:go-offsetGraph}) zostanie zapisana ta informacja oraz o tym, czy jest artykułem czy kategorią (\ref{line:go-article}).
+Każdy węzeł podczas przetwarzania jest traktowany jako \codeinline{GraphObject} i zawiera w sobie informacje o tytule na Wikipedii (\ref{line:go-title}), liczbie informującej od którego bajtu, w pliku tytułów \codeinline{.wgt} (\ref{line:go-offsetTitle}) oraz strukturze grafu \codeinline{.wgg} (\ref{line:go-offsetGraph}) zostanie zapisana ta informacja oraz o tym, czy jest artykułem czy kategorią~(\ref{line:go-article}).
 
 \paragraph{Operacje przygotowujące}
 Zanim program rozpocznie generację właściwych plików \codeinline{.wg}\textit{X}, potrzebuje dokonać generacji. W pierwszej kolejności program wywołuje metodę generującą odwzorowania odwrotne dla każdego z wymagających tego trzech plików, zgodnie z metodą opisaną w rozdziale \ref{sec:generating-missing-files}.
@@ -149,7 +149,7 @@ Następnie program odczytuje tytuły wszystkich artykułów i linia po linii zap
 
 Dzięki zapisaniu mapy odwzorowań tytułów (\ref{line:sortedTitles}) w krotkach, sortowanie możliwe jest do realizacji metodą \codeinline{Array.Sort()} z własną implementacją porównania elementów \codeinline{IComparer<T>}. Metoda sortująca dostarczona jest przez samą technologię .NET, a algorytm sortujący to implementacja algorytmu QuickSort, który ma średnią złożoność obliczeniową $O(n\log n)$.
 
-Następnie program odczytuje wszystkie elementy z posortowanej listy i zapisuje je pojedynczo do pliku \codeinline{.wgs} dla tytułów artykułów oraz \codeinline{sortedCategoryTitles.map} dla kategorii. Następuje iteracja po każdym elemencie listy, co oznacza złożoność obliczeniową $O(n)$. Po dokonaniu zapisu mapy tytułów nie są już potrzebne w dalszej części programu, więc następuje ich usunięcie z pamięci.
+Następnie program odczytuje wszystkie elementy z posortowanej listy i zapisuje je pojedynczo do~pliku \codeinline{.wgs} dla tytułów artykułów oraz \codeinline{sortedCategoryTitles.map} dla kategorii. Następuje iteracja po~każdym elemencie listy, co oznacza złożoność obliczeniową $O(n)$. Po dokonaniu zapisu mapy tytułów nie są już potrzebne w dalszej części programu, więc następuje ich usunięcie z pamięci.
 
 Uznając ilość artykułów za $n$, a ilość kategorii za $m$, łączna złożoność obliczeniowa algorytmów etapu operacji, przygotowujących generację plików, została przedstawiona we wzorze \ref{eq:initial_operations}.
 
@@ -160,11 +160,11 @@ O(2n) + O(n\log n) + O(2m) + O(m \log m) = O(n\log n + m\log m)
 \end{equation}
 
 \paragraph{Generacja plików Wikigraphu}
-Kolejnym etapem jest już faktyczne zapisanie danych o węźle do wszystkich plików. Liczba artykułów jest już znana - wystarczy policzyć elementy w mapie \codeinline{pageMap} (linia \ref{line:pageMap} w listingu \ref{lst:graph-object}) - i zapisać ją do pliku \codeinline{.wgi}.
+Kolejnym etapem jest już faktyczne zapisanie danych o węźle do~wszystkich plików. Liczba artykułów jest już znana - wystarczy policzyć elementy w mapie \codeinline{pageMap} (linia \ref{line:pageMap} w listingu \ref{lst:graph-object}) - i zapisać ją do pliku \codeinline{.wgi}.
 
-Aby zachować taką samą kolejność węzłów, ponownie dokonany jest odczyt pliku tytułów dla artykułów i dla każdego węzła parsowane są informacje do struktury reprezentującej dany element w programie (listing \ref{lst:graph-object}). Program jest napisany w postaci klasy zawierającej wszystkie metody zapisu i odczytu danych, co umożliwia łatwe przekazywanie zmiennych pomiędzy metodami, bez konieczności przekazywania wszystkiego w argumentach.
+Aby zachować taką samą kolejność węzłów, ponownie dokonany jest odczyt pliku tytułów dla~artykułów i~dla~każdego węzła parsowane są informacje do struktury reprezentującej dany element w~programie (listing \ref{lst:graph-object}). Program jest napisany w postaci klasy zawierającej wszystkie metody zapisu i~odczytu danych, co umożliwia łatwe przekazywanie zmiennych pomiędzy metodami, bez konieczności przekazywania wszystkiego w argumentach.
 
-Plik z tytułami zawiera wszystkie interesujące nas elementy. Nie istnieje element w innych plikach, który nie posiada swojej reprezentacji w pliku z tytułami (element z pliku z tytułami może natomiast nie zawierać wpisu w plikach połączeń). Program przechowuje w głównej klasie numery linii dla każdego pliku z połączeniami, które powinniśmy aktualnie odczytać.
+Plik z tytułami zawiera wszystkie interesujące nas elementy. Nie istnieje element w innych plikach, który nie posiada swojej reprezentacji w pliku z tytułami (element z pliku z tytułami może natomiast nie~zawierać wpisu w plikach połączeń). Program przechowuje w głównej klasie numery linii dla każdego pliku z połączeniami, które powinniśmy aktualnie odczytać.
 
 \begin{enumerate}
 \item Podczas przetwarzania artykułu odczytujemy pliki
@@ -181,10 +181,10 @@ Plik z tytułami zawiera wszystkie interesujące nas elementy. Nie istnieje elem
 \end{itemize}
 \end{enumerate}
 
-Przy odczytaniu wartości ID w pliku tytułów, odczytywane są także pojedyncze linie w powyższych plikach \codeinline{.map}. Jeżeli ID w pliku z połączeniami odpowiada ID w pliku tytułów, te połączenia są uwzględniane do aktualnego węzła, a licznik odczytu linii dla danego pliku jest zwiększany. Jeżeli w pliku połączeń nie znaleziono wartości ID z pliku tytułów, dany artykuł bądź kategoria nie zawiera w tym pliku \codeinline{.map} żadnych połączeń, a licznik dla tego pliku nie jest zwiększany.
+Przy odczytaniu wartości ID w pliku tytułów, odczytywane są także pojedyncze linie w powyższych plikach \codeinline{.map}. Jeżeli ID w pliku z połączeniami odpowiada ID w pliku tytułów, te połączenia są~uwzględniane do aktualnego węzła, a licznik odczytu linii dla danego pliku jest zwiększany. Jeżeli w~pliku połączeń nie znaleziono wartości ID z pliku tytułów, dany artykuł bądź kategoria nie zawiera w~tym pliku \codeinline{.map} żadnych połączeń, a licznik dla tego pliku nie jest zwiększany.
 
 Posiadając wszystkie informacje o danym węźle, używając klasy \codeinline{BinaryWriter} dane zostają dopisane do plików \codeinline{.wgg} i \codeinline{.wgt} zgodnie z ich strukturą opisaną w rozdziale \ref{sec:opis-plikow}. Ilość dopisanych bajtów do każdego z tych plików jest dodawana do odpowiednich liczników, a ich wartości zostają wraz z ID z Wikipedii dopisane do pliku \codeinline{.wgm}. Całość jest powtarzana dla każdego z artykułów, a następnie dla każdej z kategorii, zgodnie z plikiem z tytułami.
 
 Ponieważ kategorie znajdują się na końcu pliku \codeinline{.wgm}, w momencie odczytywania ich kolejności w pliku \codeinline{.wgm} z mapy odwzorowań (listing \ref{lst:graph-object} linia \ref{line:categoryMap}) do tej wartości dodawana jest ilość artykułów, czyli liczba zapisana w pliku \codeinline{.wgi}. Przykładowo pierwsza kategoria będzie po ostatnim artykule, więc jeżeli jej ID oryginalnie wynosiło 0 (jako pierwsza w kolejności), jej nowy ID z mapy odwzorowań będzie równe ilości artykułów.
 
-Złożoność obliczeniowa tego etapu, ponieważ następuje tutaj wyłącznie pojedyncza iteracja po każdym artykule i kategorii, wynosi $O(n+m)$, gdzie $n$ to ilość artykułów, a $m$ to ilość kategorii. Główna czasochłonność pochodzi z czasu otwierania i zamykania strumieni dostępu do plików oraz odczytywania danych.
+Złożoność obliczeniowa tego etapu, ponieważ następuje tutaj wyłącznie pojedyncza iteracja po~każdym artykule i kategorii, wynosi $O(n+m)$, gdzie $n$ to ilość artykułów, a $m$ to ilość kategorii. Główna czasochłonność pochodzi z czasu otwierania i zamykania strumieni dostępu do plików oraz odczytywania danych.
