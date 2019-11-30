@@ -8,10 +8,7 @@ cache:
   - "$HOME/.texlive"
 before_script: cd $TRAVIS_BUILD_DIR/
 script:
-- texliveonfly praca.tex
-- bibtex praca.aux
-- texliveonfly praca.tex
-- texliveonfly praca.tex
+- xelatex praca.tex
 deploy:
   provider: releases
   api_key:
