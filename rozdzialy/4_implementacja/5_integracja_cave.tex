@@ -8,26 +8,26 @@ Przystosowanie aplikacji do działania w środowisku LZWP dzieli się na dwa pod
 % Input Module
 \subsection{Moduł wejścia}
 W założeniu aplikacja ma wspierać dwie metody interakcji użytkownika, nazywane później środowiskami:
-\begin{enumerate}[label=\textbullet]
+\begin{itemize}
 	\item \textbf{PC} - gdzie użytkownik posługuje się klawiaturą i myszą, używane głównie podczas procesu wytwarzania aplikacji
 	\item \textbf{Jaskini} - gdzie użytkownik nosi okulary i trzyma specjalny kontroler nazywany flystickiem
-\end{enumerate}
+\end{itemize}
 Aby ułatwić sobie wytwarzanie głównej logiki aplikacji, wejście zostało odseparowane w osobny moduł, który może być przed uruchomieniem ustawiony w jeden z dwóch trybów, odpowiadającym każdemu środowisku. Tryb ten definiuje jakiego rodzaju wejścia ma nasłuchiwać aplikacja. Moduł wejścia składa się z trzech mniejszych części:
 \paragraph{Definicje akcji użytkownika}
 Ustala wspólny interfejs dla każdej akcji użytkownika dostępnej w aplikacji. Są to między innymi: 
-\begin{enumerate}[label=\textbullet]
+\begin{itemize}
 	\item Użycie przycisku klawiatury i myszy (PC) lub flysticka (jaskinia)
 	\item Przesunięcie myszy (PC) lub flysticka (jaskinia)
-\end{enumerate}
+\end{itemize}
 Oprócz tego jest odpowiedzialna za nasłuchiwanie wykonania przez użytkownika swojej akcji i odpowiednie powiadomienie aplikacji.
 
 \paragraph{Definicje akcji aplikacji}
 Spis akcji wykonywanych w aplikacji. Są to między innymi: 
-\begin{enumerate}[label=\textbullet]
+\begin{itemize}
 	\item Wybranie lub podświetlenie węzła
 	\item Poruszanie się po grafie
 	\item Zmiana zakresu wyświetlanych połączeń
-\end{enumerate}
+\end{itemize}
 Każda akcja ma swój typ (opisany w poprzednim punkcie). Dostępny jest też interfejs, dzięki któremu możliwe jest łatwe wybranie konkretnego przycisku (w każdym ze środowisk), który ma aktywować daną akcję (rysunek \ref{fig:input-interface}).
 
 \paragraph{Procesor akcji użytkownika}
