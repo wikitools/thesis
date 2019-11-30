@@ -8,6 +8,8 @@
 \usetikzlibrary{shapes,arrows}  % Pakiet pomocniczy do tikz
 \RequirePackage{listings} 		% do prezentowania listingu kodu
 
+\usepackage{courier}
+\lstset{basicstyle=\ttfamily\footnotesize, breaklines=true}
 
 %------------------------------------------------------------
 % Konfiguracja listingów - zdefiniować można także dodatkowe
@@ -82,7 +84,7 @@
 
 \lstdefinestyle{java}{
   backgroundcolor=\color{WhitePG},   % kolor tła dla listingu
-  basicstyle=\linespread{1}\footnotesize\ttfamily,        % rozmiar czcionki dla kodu w listingu
+  basicstyle=\linespread{1}\footnotesize,        % rozmiar czcionki dla kodu w listingu
   breakatwhitespace=false,         % ustawienie białej spacji
   breaklines=true,                 % automatyczne łamanie linii
   captionpos=b,                    % opis listingu pod ramką
