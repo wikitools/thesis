@@ -160,7 +160,7 @@ O(2n) + O(n\log n) + O(2m) + O(m \log m) = O(n\log n + m\log m)
 \end{equation}
 
 \paragraph{Generacja plików Wikigraphu}
-Kolejnym etapem jest już faktyczne zapisanie danych o węźle do~wszystkich plików. Liczba artykułów jest już znana - wystarczy policzyć elementy w mapie \codeinline{pageMap} (linia \ref{line:pageMap} w listingu \ref{lst:graph-object}) - i zapisać ją do pliku \codeinline{.wgi}.
+Kolejnym etapem jest już faktyczne zapisanie danych o węźle do~wszystkich plików. Liczba artykułów jest już znana - wystarczy policzyć elementy w mapie \codeinline{pageMap} (linia~\ref{line:pageMap} w~listingu \ref{lst:graph-object}) - i zapisać ją do pliku \codeinline{.wgi}.
 
 Aby zachować taką samą kolejność węzłów, ponownie dokonany jest odczyt pliku tytułów dla~artykułów i~dla~każdego węzła parsowane są informacje do struktury reprezentującej dany element w~programie (listing \ref{lst:graph-object}). Program jest napisany w postaci klasy zawierającej wszystkie metody zapisu i~odczytu danych, co umożliwia łatwe przekazywanie zmiennych pomiędzy metodami, bez konieczności przekazywania wszystkiego w argumentach.
 
