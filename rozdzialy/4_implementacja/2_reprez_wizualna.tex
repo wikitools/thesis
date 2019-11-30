@@ -3,7 +3,7 @@
 \label{sec:graf-reprezentacja}
 
 \newcommand\mapitem[3]{
-	\item \textbf{#1 $\to$ #2}
+	\item \textbf{#1 $\rightarrow$ #2}
 
 	#3
 }
@@ -24,7 +24,7 @@ Graf jest przechowywany w pamięci aplikacji jako zbiór map:
 
 Obiekty węzłów nie są w większości przypadków tworzone dynamicznie. Zamiast tego przy starcie aplikacji tworzona jest pula nieużywanych obiektów. W momencie ładowania węzła nowy obiekt wizualny tworzony jest tylko w przypadku, kiedy pula została wyczerpana. Przy usuwaniu węzła jego reprezentacja nie jest niszczona, tylko zwracana do puli w celu przyszłego wykorzystania.
 
-W celu odciążenia karty graficznej zrezygnowaliśmy z wyświetlania każdego węzła jako trójwymiarowego modelu (jak na przykład kuli). Reprezentacją węzła jest prosta grafika rastrowa (Rysunek \ref{fig:node_sprites}). Dzięki temu siatka przetwarzana przez komputer jest dużo prostsza, ponieważ zawiera tylko cztery wierzchołki (dwa trójkąty) - jest to kwadratowa płaszczyzna z nałożoną teksturą. Dzięki temu aplikacja jest w stanie wyświetlić więcej węzłów na raz bez utraty płynności działania.
+W celu odciążenia karty graficznej zrezygnowaliśmy z wyświetlania każdego węzła jako trójwymiarowego modelu (jak na przykład kuli). Reprezentacją węzła jest prosta grafika rastrowa (rysunek \ref{fig:node_sprites}). Dzięki temu siatka przetwarzana przez komputer jest dużo prostsza, ponieważ zawiera tylko cztery wierzchołki (dwa trójkąty) - jest to kwadratowa płaszczyzna z nałożoną teksturą. Dzięki temu aplikacja jest w stanie wyświetlić więcej węzłów na raz bez utraty płynności działania.
 
 \img{\chapterPath/img/node_sprites.png}{Grafiki węzłów (od lewej): artykuł aktywny i wskazany, kategoria aktywna i wskazana}{node_sprites}{0.5}
 

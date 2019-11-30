@@ -11,7 +11,7 @@
 		\item \textbf{Stanisław Góra:} \newline Podstawa aplikacji, integracja ze środowiskiem jaskini, nadzór nad całością
 		\item \textbf{Mikołaj Mirko:} \newline Interfejs użytkownika oraz wygląd aplikacji i programu do tworzenia danych
 		\item \textbf{Jan Kruczyński:} \newline Przetwarzanie danych Wikipedii na potrzeby aplikacji, ładowanie węzłów
-		\item \textbf{Mateusz Janicki:} \newline Dodatkowe funkcje aplikacji (historia, trasy, wyszukiwanie), skomponowanie i dodanie muzyki
+		\item \textbf{Mateusz Janicki:} \newline Dodatkowe funkcje aplikacji (historia, trasy oraz wyszukiwanie), kompozycja muzyki
 	\end{enumerate}
 	
 	Projektowanie aplikacji na środowisko jaskini rzeczywistości wirtualnej wiąże się z wieloma trudnościami. Projekt, od rozpoczęcia pracy nad nim, uległ wielu zmianom, co łatwo zauważyć walidując specyfikację napisaną na samym początku z uzyskanym produktem końcowym. Bazowe założenia pozostały jednak bez zmian.
@@ -20,7 +20,7 @@
 
 	Dużą zmianą wprowadzoną w specyfikacji funkcjonalności była rezygnacja z linii czasu. Ze względu na niewystarczające rozeznanie oraz błędne założenia dotyczące oferowanych przez wybrane źródło danych informacji niemożliwe było zgromadzenie potrzebnych do tej funkcjonalności danych. Szczegółowy opis tej problemowej funkcjonalności został opisany w specjalnej sekcji \ref{sec:linia-czasu}. Względem spisanych wymagań, zmianom uległ również sposób wyświetlania informacji o węzłach, infografiki instruktażowe oraz dodatkowe elementy (sekcja \ref{sec:elementy}). Nagłówek został uszczegółowiony, a pozostałe elementy (takie jak na przykład siatka wspomagająca) dodane w celu zwiększenia użyteczności aplikacji.
 
-	W związku z opisanymi modyfikacjami schemat kontrolera uległ zmianie. Liczba kontrolerów została zredukowana do jednego, a jego przyciski zostały rozplanowane trochę inaczej - tak, aby korzystanie z kontrolera było wygodniejsze. Nowy schemat znajduje się na Rysunku \ref{fig:flystick_new_controls}. To, jak i inne parametry aplikacji zostały, w ramach testów, dostosowane do potrzeb opisanych w wymaganiach jakościowych (sekcja \ref{sec:wymagania-jakosciowe}). Ograniczenie ilości funkcjonalności pozwoliło na skupienie się na pozostałych elementach aplikacji oraz dopracowanie ich.
+	W związku z opisanymi modyfikacjami schemat kontrolera uległ zmianie. Liczba kontrolerów została zredukowana do jednego, a jego przyciski zostały rozplanowane trochę inaczej - tak, aby korzystanie z kontrolera było wygodniejsze. Nowy schemat znajduje się na rysunku \ref{fig:flystick_new_controls}. To, jak i inne parametry aplikacji zostały, w ramach testów, dostosowane do potrzeb opisanych w wymaganiach jakościowych (sekcja \ref{sec:wymagania-jakosciowe}). Ograniczenie ilości funkcjonalności pozwoliło na skupienie się na pozostałych elementach aplikacji oraz dopracowanie ich.
 
 	Nieprzewidzianym przez nas aspektem pracy stało się wydobycie potrzebnych danych. W pierwotnych założeniach sprowadzało się do pobrania i prostego przetworzenia informacji. Z czasem pojawiały się jednak kolejne problemy (dostępność danych, ich format i rozmiar, oferowane informacje o pojedynczym artykule itp.). Odpowiedzią na skomplikowany proces pozyskiwania i przetwarzania danych jest dodatkowe narzędzie WikiGraph Parser (opisane w rozdziale \ref{ch:dane}). Zostało stworzone w celu ułatwienia generowania plików wejściowych do głównej aplikacji oraz zebraniu algorytmów przetwarzających w jednym miejscu.
 

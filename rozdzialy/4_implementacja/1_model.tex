@@ -3,7 +3,7 @@
 
 Model danych aplikacji tworzony jest na podstawie plików opisanych w sekcji \ref{sec:data-files}. Są one otwierane jako strumienie używając klasy \codeinline{FileStream}, co pozwala na jednakowy dostęp do każdej części pliku. 
 
-Listing \ref{lst:node-model} zawiera używany przez aplikację model węzła. Przy żądaniu załadowania do pamięci węzła o konkretnym numerze (linia \ref{line:nm-id}) najpierw odczytywane są informacje z pliku mapy, a następnie na ich podstawie wczytywany jest tytuł (\ref{line:nm-title}) oraz połączenia węzła (\ref{line:nm-children} i \ref{line:nm-parents}). Określany jest też typ węzła (\ref{line:nm-type}) oraz jego identyfikator przypisany przez Wikipedię (\ref{line:nm-wikiid}). Na koniec nowo wczytanemu węzłowi zostaje przypisany stan (\ref{line:nm-state}) aktywny.
+Listing \ref{lst:node-model} zawiera używany przez aplikację model węzła. Przy żądaniu załadowania do pamięci węzła o konkretnym numerze (wiersz \ref{line:nm-id} na listingu \ref{lst:node-model}) najpierw odczytywane są informacje z pliku mapy, a następnie na ich podstawie wczytywany jest tytuł (\ref{line:nm-title}) oraz połączenia węzła (\ref{line:nm-children} i \ref{line:nm-parents}). Określany jest też typ węzła (\ref{line:nm-type}) oraz jego identyfikator przypisany przez Wikipedię (\ref{line:nm-wikiid}). Na koniec nowo wczytanemu węzłowi zostaje przypisany stan (\ref{line:nm-state}) aktywny.
 \begin{lstlisting}[caption={Model węzła grafu}, label=lst:node-model]
 public class Node {
 	public uint[] Children; %*\label{line:nm-children}*)
@@ -20,6 +20,6 @@ public class Node {
 }
 \end{lstlisting}
 
-Załadowane węzły są dodawane jako wartości w mapie \codeinline{ID} $\,\to\,$ \codeinline{Node}, co pozwala na późniejsze szybkie uzyskanie modelu na podstawie jego identyfikatora. Przechowywanie grafu w pamięci zostanie szczegółowo opisane w sekcji \ref{sec:graf-reprezentacja}.
+Załadowane węzły są dodawane jako wartości w mapie \codeinline{ID} $\rightarrow$ \codeinline{Node}, co pozwala na późniejsze szybkie uzyskanie modelu na podstawie jego identyfikatora. Przechowywanie grafu w pamięci zostanie szczegółowo opisane w sekcji \ref{sec:graf-reprezentacja}.
 
 W wyniku interakcji użytkownika z węzłem pokazywane są połączenia, Zostały one zamodelowane jako zbiór par węzłów. Przy tym przyjmujemy, że połączenie zaczyna się w węźle z którym nastąpiła interakcja.
