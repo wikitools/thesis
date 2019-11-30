@@ -11,6 +11,7 @@ script:
 - xelatex praca.tex
 - bibtex praca.aux
 - xelatex praca.tex
+- xelatex praca.tex
 deploy:
   provider: releases
   api_key:
