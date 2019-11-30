@@ -26,7 +26,7 @@ Do finalnego, poprawnego generowania plików potrzebne są dodatkowe pliki:
     \item Kategorie, do których należy dana kategoria (odwrotność categorylinksfromcategory.map)
 \end{itemize}
 
-Dane, które są potrzebne, nie znajdują się w plikach SQL, lecz dzięki opisanym w sekcji 3.3 plikom \codeinline{.map}, istnieje możliwość generacji na ich podstawie brakujących informacji. Aby to zrobić, należy odczytać interesujący plik \codeinline{.map} i linia po linii wypełnić słownik o następującej formie:
+Dane, które są potrzebne, nie znajdują się w plikach SQL, lecz dzięki opisanym w sekcji \ref{sec:data-parsing} plikom \codeinline{.map}, istnieje możliwość generacji na ich podstawie brakujących informacji. Aby to zrobić, należy odczytać interesujący plik \codeinline{.map} i linia po linii wypełnić słownik o następującej formie:
 
 \begin{lstlisting}[caption={Słownik przechowujący odwzorowanie odwrotne}, label=lst:reverse-map]
 Dictionary<int, List<string>> reverseMap = new Dictionary<int, List<string>>();
