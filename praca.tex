@@ -10,9 +10,10 @@
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{mathspec}
+\usepackage{afterpage}
 
 \RequirePackage{fontspec}
-\setmainfont{Liberation Sans}
+\setmainfont{Arial}
 
 \usepackage{hyperref}
 
@@ -23,8 +24,9 @@
 \input{meta/komendy.tex}
 \lstset{style=java}
 
-%\includepdf{meta/strona_tytulowa.pdf}
-%\includepdf{meta/oswiadczenie.pdf}
+\includepdf[pages=-]{meta/StronaTytulowa_165696.pdf}
+\includepdf{meta/Oswiadczenie_165696.pdf}
+\afterpage{\blankpage}
 
 \input{meta/streszczenie.tex}
 \input{meta/abstract.tex}
