@@ -16,7 +16,7 @@ public interface UserAction {
 }
 \end{lstlisting}
 
-Bezpośrednie operacje na historii wykonywane są przez \codeinline{HistoryService}. Przechowuje on akcje użytkownika we dwu stosach: pierwszy służy zapisywaniu akcji do cofnięcia, drugi akcji do ponowienia. W momencie wciśnięcia przycisku 2 wyzwalane jest zdarzenie wywołujące funkcję \codeinline{UndoAction()}, która poza wykonaniem kolejnego zdarzenia wywołującego funkcję akcji odpowiedzialnej za cofanie, zdejmuje tę akcję ze stosu akcji do cofania i wkłada na stos akcji do ponawiania.
+Bezpośrednie operacje na historii wykonywane są przez \codeinline{HistoryService}. Przechowuje on akcje użytkownika we dwu stosach: pierwszy służy zapisywaniu akcji do cofnięcia, drugi akcji do ponowienia. W momencie wciśnięcia \textit{Przycisku 2} wyzwalane jest zdarzenie wywołujące funkcję \codeinline{UndoAction()}, która poza wykonaniem kolejnego zdarzenia wywołującego funkcję akcji odpowiedzialnej za cofanie, zdejmuje tę akcję ze stosu akcji do cofania i wkłada na stos akcji do ponawiania.
 
 Wszystkie delegowane funkcje służące historii oraz trasom są przypisywane w kontrolerze\linebreak \codeinline{HistoryController}. Warunkiem jest, aby aplikacja była serwerem.
 
@@ -28,4 +28,4 @@ Analogicznie do modułu historii zaprojektowane zostało odtwarzanie tras. Pliki
 
 Po wybraniu trasy rozpoczyna się proces jej wczytywania. Są za to odpowiedzialne dwie klasy: \codeinline{RoutesReader} oraz \codeinline{RoutesLoader}. Pierwsza ma za zadanie pobrać dostępne trasy, ich nazwy i długość oraz wczytywać kolejne linijki plików. Druga przekształca wczytane dane linijka po linijce na odpowiednie akcje i dopisuje do stosu.
 
-W momencie włączenia trasy inicjowane jest wczytanie trasy z plików, a po tej operacji tworzony jest współprogram (ang. coroutine), który ma za zadanie wykonywanie kolejnych akcji trasy co~daną liczbę sekund. Odtwarzanie trasy sygnalizowane jest przez ikonę \textit{AUTO} w nagłówku. W każdym momencie możliwe jest wyłączenie odtwarzania trasy za pomocą Przycisku 4 lub jakiejkolwiek akcji wykonanej przez użytkownika, co powodujące zatrzymanie współprogramu. W przypadku włączenia innej trasy w~trakcie odtwarzania, współprogram poprzedniej trasy jest także wyłączany, a następnie wczytywana i~inicjalizowana jest nowa trasa. 
+W momencie włączenia trasy inicjowane jest wczytanie trasy z plików, a po tej operacji tworzony jest współprogram (ang. coroutine), który ma za zadanie wykonywanie kolejnych akcji trasy co~daną liczbę sekund. Odtwarzanie trasy sygnalizowane jest przez ikonę \textit{AUTO} w nagłówku. W każdym momencie możliwe jest wyłączenie odtwarzania trasy za pomocą \textit{Przycisku 4} lub jakiejkolwiek akcji wykonanej przez użytkownika, co powodujące zatrzymanie współprogramu. W przypadku włączenia innej trasy w~trakcie odtwarzania, współprogram poprzedniej trasy jest także wyłączany, a następnie wczytywana i~inicjalizowana jest nowa trasa. 
